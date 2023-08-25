@@ -1,0 +1,4 @@
+# User Token For Develop
+  1. system admin: eyJpZCI6IlNZUzAwMSIsInBob25lIjoiKzYyMDAwMDAwMCIsInJvbGVzIjoxLCJ0ZWFtIjowfQ==
+  5. branch admin: eyJpZCI6IlNZUzAwMSIsInBob25lIjoiKzYyMDAwMDAwMCIsInJvbGVzIjo1LCJ0ZWFtIjowLCJsb2NhdGlvbklkIjoiQjAwMSJ9
+  8. branch warehouse admin: eyJpZCI6IlNZUzAwMSIsInBob25lIjoiKzYyMDAwMDAwMCIsInJvbGVzIjo4LCJ0ZWFtIjowLCJsb2NhdGlvbklkIjoiQjAwMSJ9

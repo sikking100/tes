@@ -1,0 +1,44 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "next": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "team": 0
+        },
+        "back": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "team": 0
+        },
+        "items": [
+            {
+                "id": "string",
+                "category": {
+                    "id": "string",
+                    "name": "string",
+                    "food": 0,
+                    "retail": 0,
+                    "createdAt": "2022-12-19T15:33:44.553Z",
+                    "updatedAt": "2022-12-19T15:33:44.553Z"
+                },
+                "brand": {
+                    "id": "string",
+                    "name": "string",
+                    "imageUrl": "string",
+                    "createdAt": "2022-12-19T15:33:44.553Z",
+                    "updatedAt": "2022-12-19T15:33:44.553Z"
+                },
+                "name": "string",
+                "description": "string",
+                "size": "string",
+                "team": 0,
+                "imageUrl": "string",
+                "point": 0.0,
+                "createdAt": "2022-12-19T15:33:44.553Z",
+                "updatedAt": "2022-12-19T15:33:44.553Z"
+            }
+        ]
+    }
+}

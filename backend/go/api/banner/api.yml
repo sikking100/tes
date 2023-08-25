@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: Banner Api
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:   
+  /banner/v1:
+    get:
+      summary: "[all user]"
+      description: "find banner"
+      parameters:
+        - name: type
+          in: query
+          required: true
+          description: "1.INTERNAL</br>2.EXTERNAL"
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/ListBanner'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+  /banner/v1/{id}:
+    delete:
+      summary: "[system admin]"
+      description: "delete banner by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Banner'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+  /banner/v1/event/new-image:
+    post:
+      summary: "[event]"
+      description: update image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "bucket-name/banner/thumbs/{file-name.ext}/{file-id}"
+                contentType:
+                  type: string
+                  example: "image/webp"
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                     type: string 
+                  errors:
+                    type: string
+                    nullable: true
+                    default: null    
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'        
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string    
+  schemas:
+    Banner:
+      type: object
+      properties:
+        id: 
+          type: string
+        type: 
+          type: integer
+          description: "1.INTERNAL</br>2.EXTERNAL"
+        imageUrl:
+          type: string 
+        imagePath:
+          type: string  
+        createdAt:
+          type: string
+          format: date-time
+  responses:
+    Banner:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Banner'
+              errors:
+                type: string
+                default: null
+    ListBanner:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Banner'
+              errors:
+                type: string
+                default: null
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "not found"  
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

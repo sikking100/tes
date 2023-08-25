@@ -1,0 +1,879 @@
+openapi: '3.0.2'
+info:
+  title: Delivery API
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  /delivery/v1:
+    get:
+      summary: "[all user]"
+      description: "find delivery"
+      parameters:  
+      - name: num
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+      - name: limit
+        in: query
+        required: true
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+      - name: branchId
+        in: query
+        schema:
+          type: string
+      - name: courierId
+        in: query
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: false
+        schema:
+          type: integer    
+      responses:
+        200:
+          description: "page"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Page'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'
+  /delivery/v1/{id}:
+    get:
+      summary: "[all user]"
+      description: "find delivery by id"
+      parameters: 
+      - $ref: '#/components/parameters/id' 
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+  /delivery/v1/{id}/by-order:
+    get:
+      summary: "[all user]"
+      description: "find delivery by order id"
+      parameters: 
+      - $ref: '#/components/parameters/id' 
+      responses:
+        200:
+          $ref: '#/components/responses/ListDelivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'        
+  /delivery/v1/{id}/packing-list:
+    put:
+      summary: "[branch warehouse admin]"
+      description: "create packing list"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePackingList'
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'
+  /delivery/v1/{id}/courier-internal:
+    put:
+      summary: "[branch warehouse admin]"
+      description: "set courier internal"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Courier'
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'
+  /delivery/v1/{id}/courier-external:
+    put:
+      summary: "[branch warehouse admin]"
+      description: "booking courier external"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingCourierExternal'
+      responses:
+        200:
+          description: "booking response"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/BookingCourierExternal'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'        
+  /delivery/v1/{id}/update-qty:
+    put:
+      summary: "[branch warehouse admin]"
+      description: "update delivery qty, before loaded"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateQty'
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                
+  /delivery/v1/{id}/deliver:
+    put:
+      summary: "[courier]"
+      description: "update status to delivery" 
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'                        
+  /delivery/v1/{id}/restock:
+    put:
+      summary: "[branch warehose admin]"
+      description: "restock packing list"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Restock'
+      responses:
+        200:
+          description: "delivery"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Restock'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'        
+  /delivery/v1/{id}/complete:
+    put:
+      summary: "[courier]"
+      description: "complete packing list"
+      parameters:
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Complete'
+      responses:
+        200:
+          $ref: '#/components/responses/Delivery'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                
+  /delivery/v1/paking-list/warehouse:
+    get:
+      summary: "[branch warehouse admin]"
+      description: "find packing list warhouse"
+      parameters:
+      - name: branchId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: warehouseId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: integer    
+      responses:
+        200:
+          description: "packing list warehouse"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PackingListWarehouse'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'        
+  /delivery/v1/paking-list/courier:
+    get:
+      summary: "[courier]"
+      description: "find packing list courier"
+      parameters:
+      - name: courierId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: status
+        in: query
+        required: true
+        schema:
+          type: integer     
+      responses:
+        200:
+          description: "packing list courier"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PackingListCourier'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                
+  /delivery/v1/paking-list/destination:
+    get:
+      summary: "[courier]"
+      description: "find packing list destination"
+      parameters:
+      - name: courierId
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        200:
+          description: "packing list destination"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PackingListDestination'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                        
+  /delivery/v1/paking-list/loaded:
+    put:
+      summary: "[courier]"
+      description: "loaded packing list"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PackingListLoaded'
+      responses:
+        200:
+          description: "delivery"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/PackingListLoaded'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                                
+  /delivery/v1/product/find:
+    get:
+      summary: "[branch warehouse admin, courier]"
+      description: "find product by status"
+      parameters: 
+      - name: courierId
+        in: query
+        description: "required if not find by warehouseId"
+        schema:
+          type: string
+      - name: status
+        in: query
+        schema:
+          type: integer
+      - name: warehouseId
+        in: query
+        description: "required if not find by courier"
+        schema:
+          type: string
+      - name: branchId
+        in: query
+        description: "required if find by warehouseId"
+        schema:
+          type: string
+      responses:
+        200:
+          description: "delivery"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  errors:
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                                
+          
+  /delivery/v1/gosend/price:
+    get:
+      summary: "[all user]"
+      description: "get delivery price"
+      parameters: 
+      - name: originLat
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: originLng
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double  
+      - name: destinationLat
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double
+      - name: destinationLng
+        in: query
+        required: true
+        schema:
+          type: number
+          format: double  
+      responses:
+        200:
+          $ref: '#/components/responses/Price'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                       
+  /delivery/v1/gosend-callback:
+    post:
+      summary: "[thrid party]"
+      description: "gosend callback"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                store_order_id:
+                  type: string
+                entity_id:
+                  type: string
+                status:
+                  type: string
+                driver_name:
+                  type: string 
+                driver_phone:
+                  type: string
+                driver_photo_url:
+                  type: string
+                live_tracking_url:
+                  type: string  
+                price:
+                  type: number
+                  format: double
+      responses:
+        200:
+          $ref: '#/components/responses/Price'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'                      
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string  
+  schemas:
+    Warehouse:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        addressName:
+          type: string
+        addressLngLat:
+          type: array
+          items:
+            type: number
+            format: double
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        warehouse:
+          $ref: '#/components/schemas/Warehouse'
+        category:
+          type: string
+        brand:
+          type: string  
+        name: 
+          type: string
+        size: 
+          type: string
+        imageUrl: 
+          type: string
+        purcaseQty:
+          type: integer
+        deliveryQty:
+          type: integer
+        reciveQty:
+          type: integer  
+        brokenQty:
+          type: integer
+        status:
+          type: integer
+          description: "0.APPLY</br>1.PENDING</br>2.CREATE PACKING LIST</br>3.ADD COURIER</br>4.PICKED_UP</br>5.LOADED</br>6.WAITING DELIVER</br>7.DELIVER</br>8.RESTOCK</br>9.COMPLETE</br>10.CANCEL"
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        picName:
+          type: string
+        picPhone:
+          type: string  
+        addressName:
+          type: string
+        addressLngLat:
+          type: array
+          items:
+            type: number
+            format: double
+    Courier:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        imageUrl:
+          type: string
+    Delivery:
+      type: object
+      properties:
+        id:
+          type: string
+        orderId:
+          type: string
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'
+        courier:
+          $ref: '#/components/schemas/Courier'
+        courierType:
+          type: integer
+          description: "0.INTERNAL</br>1.GOSEND INSTANT"  
+        url:
+          type: string
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        note:
+          type: string
+        status:
+          type: integer
+          description: "0.APPLY</br>1.PENDING</br>2.CREATE PACKING LIST</br>3.ADD COURIER</br>4.PICKED_UP</br>5.LOADED</br>6.WAITING DELIVER</br>7.DELIVER</br>8.RESTOCK</br>9.COMPLETE</br>10.CANCEL"
+        deliveryAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time  
+    Page:
+      type: object
+      properties:
+        back:
+          type: integer
+          default: null
+        next:
+          type: integer
+          default: null
+        limit:
+          type: integer
+          default: 20
+        branchId:
+          type: string
+        courierId:
+          type: string
+        status:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Delivery'
+    CreatePackingList:
+      type: object
+      properties:
+        courierType:
+          type: integer
+          description: "0.INTERNAL</br>1.GOSEND INSTANT"
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    BookingCourierExternal:
+      type: object
+      properties:
+        customer:
+          $ref: '#/components/schemas/Customer'
+        customerPicName:
+          type: string
+        customerPicPhone:
+          type: string  
+        customerAddressName:
+          type: string
+        customerAddressLng:
+          type: number
+          format: double
+        customerAddressLat:
+          type: number
+          format: double  
+        warehousePicName:
+          type: string
+        warehousePicPhone:
+          type: string
+        warehouseAddressName:
+          type: string
+        warehouseAddressLng:
+          type: number
+          format: double
+        warehouseAddressLat:
+          type: number
+          format: double
+        item:
+          type: string
+          description: "gosend item"
+    UpdateQty:
+      type: object
+      properties:
+        productId:
+          type: string
+        deliveryQty:
+          type: integer
+    PackingListWarehouse:
+      type: object
+      properties:
+        courier:
+          $ref: '#/components/schemas/Courier'
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    PackingListCourier:
+      type: object
+      properties:
+        warehouse:
+          $ref: '#/components/schemas/Warehouse'
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'        
+    PackingListDestination:
+      type: object
+      properties:
+        orderId:
+          type: string
+        deliveryId:
+          type: string
+        customer:
+          $ref: '#/components/schemas/Customer'      
+    PackingListLoaded:
+      type: object
+      properties:
+        branchId:
+          type: string
+        courierId:
+          type: string
+        warehouseId:
+          type: string
+        product:
+          type: object
+          additionalProperties:
+            type: integer
+        
+    Restock:
+      type: object
+      properties:
+        branchId:
+          type: string
+        warehouseId:
+          type: string
+    Complete:
+      type: object
+      properties:
+        courierId:
+          type: string
+        product:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+        status:
+          type: integer
+          description: "8.RESTOCK</br>9.COMPLETE"
+        note: 
+          type: string
+  responses:
+    Delivery:
+      description: "delivery"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Delivery'
+              errors:
+                default: null
+    ListDelivery:
+      description: "list delivery"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Delivery'
+              errors:
+                default: null
+    Price:
+      description: "price"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: integer
+              errors:
+                default: null
+    400:
+      description: "Invalid input, make sure all inputs are correct"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null
+              errors: 
+                type: string
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors: 
+                type: string
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors: 
+                type: string
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors: 
+                type: string
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - local: []
+  - authjwt: []

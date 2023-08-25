@@ -1,0 +1,20 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "region": {
+            "id": "string",
+            "name": "string",
+            "createdAt": "2022-12-19T14:26:39.679Z",
+            "updatedAt": "2022-12-19T14:26:39.679Z"
+        },
+        "name": "string",
+        "address": {
+            "name": "string",
+            "lngLat": "string"
+        },
+        "createdAt": "2022-12-19T14:26:39.679Z",
+        "updatedAt": "2022-12-19T14:26:39.679Z"
+    }
+}

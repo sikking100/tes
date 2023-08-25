@@ -1,0 +1,6 @@
+{
+  "app": {
+    "android": "https://play.google.com/store/apps/",
+    "iphone": "https://www.apple.com/app-store/"
+  }
+}

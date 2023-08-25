@@ -1,0 +1,217 @@
+openapi: 3.0.3
+info:
+  title: Category Api
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:   
+  /category/v1:
+    get:
+      summary: "[all user]"
+      description: "find category"
+      responses:
+        200:
+          $ref: '#/components/responses/ListCategory'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'  
+        500:
+          $ref: '#/components/responses/500'
+  /category/v1/{id}:
+    get:
+      summary: "[all user]"
+      description: "find category by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Category'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      summary: "[system admin, sales admin]"
+      description: "upsert category by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        $ref: '#/components/requestBodies/Save'
+      responses:
+        200:
+          $ref: '#/components/responses/Category'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      summary: "[system admin]"
+      description: "delete category by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Category'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+components:
+  parameters: 
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string    
+  schemas:
+    Category:
+      type: object
+      properties:
+        id: 
+          type: string
+        name: 
+          type: string
+        team:
+          type: integer
+          description: "1.FOOD</br>2.RETAIL"
+        target:
+          type: integer
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Save:
+      type: object
+      properties:
+        name: 
+          type: string
+        team:
+          type: integer
+          description: "1.FOOD</br>2.RETAIL"
+        target:
+          type: integer  
+  requestBodies:
+    Save:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Save'
+  responses:
+    Category:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/Category'
+              errors:
+                type: string
+                nullable: true
+                default: null   
+    ListCategory:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+              errors:
+                type: string
+                nullable: true
+                default: null
+                
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "not found"  
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

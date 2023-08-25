@@ -1,0 +1,27 @@
+{
+  "code": 200,
+  "data": {
+    "id": "CATPRICE003",
+    "branch": {
+      "id": "BRA001",
+      "region": {
+        "id": "REG02",
+        "name": "Sulawesi",
+        "createdAt": "2022-12-19T14:40:19.748Z",
+        "updatedAt": "2022-12-19T14:44:56.284Z"
+      },
+      "name": "Makassar",
+      "address": {
+        "name": "Jl. Abubakar Lambogo Lr No.33 A, RT.001/RW.01, Bara-Baraya Sel., Kec. Makassar, Kota Makassar, Sulawesi Selatan 90143, Indonesia",
+        "lngLat": "119.4267065,-5.1465546"
+      },
+      "createdAt": "2022-12-19T14:44:37.475Z",
+      "updatedAt": "2022-12-19T14:44:37.475Z"
+    },
+    "name": "Kategori harga 3",
+    "team": 2,
+    "createdAt": "2022-12-19T15:20:55.082Z",
+    "updatedAt": "2022-12-19T15:20:55.082Z"
+  },
+  "message": "ok"
+}

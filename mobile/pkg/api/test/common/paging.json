@@ -1,0 +1,27 @@
+{
+    "code": 200,
+    "data": {
+        "back": null,
+        "items": [
+            {
+                "id": "BRAND801671008283328",
+                "name": "Milko",
+                "imageUrl": "https://storage.googleapis.com/dairy-food-development.appspot.com/default/brand.png",
+                "createdAt": "2022-12-14T08:58:04.766Z",
+                "updatedAt": "2022-12-14T08:58:04.766Z"
+            },
+            {
+                "id": "BRAND801671008283328",
+                "name": "Milko",
+                "imageUrl": "https://storage.googleapis.com/dairy-food-development.appspot.com/default/brand.png",
+                "createdAt": "2022-12-14T08:58:04.766Z",
+                "updatedAt": "2022-12-14T08:58:04.766Z"
+            }
+        ],
+        "next": {
+            "pageLimit": 2,
+            "pageNumber": 2
+        }
+    },
+    "message": "ok"
+}

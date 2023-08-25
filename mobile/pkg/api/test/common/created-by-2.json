@@ -1,0 +1,10 @@
+{
+    "id": "string",
+    "roles": "string",
+    "name": "string",
+    "phone": "string",
+    "note": "string",
+    "status": "PENDING",
+    "imageUrl": "string",
+    "updatedAt": "2022-11-28T06:21:28.854Z"
+}

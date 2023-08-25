@@ -1,0 +1,48 @@
+{
+  "items": [
+    {
+      "title": "Dairyfood Online",
+      "paragraph": [
+        "Menyediakan beragam produk Food Service dan Retail",
+        "yang cocok untuk kebutuhan usaha dan rumah tangga."
+      ],
+      "buttonText": "Unduh Sekarang",
+      "buttonLink": "/",
+      "img": "/assets/layanan 1.webp"
+    },
+    {
+      "title": "Food Service",
+      "paragraph": [
+        "Belanja produk-produk HORECA yang berkualitas",
+        "dari brand ternama dengan harga yang bersaing."
+      ],
+      "buttonText": "Unduh Sekarang",
+      "buttonLink": "/",
+
+      "img": "/assets/layanan 2.webp"
+    },
+    {
+      "title": "Retail",
+      "paragraph": [
+        "Tersedia ratusan jenis produk yang sesuai untuk",
+        "kebutuhan warung ataupun dapur Anda."
+      ],
+      "buttonText": "Unduh Sekarang",
+      "buttonLink": "/",
+
+      "img": "/assets/layanan 3.webp"
+    },
+    {
+      "title": "Opsi Pembayaran",
+      "paragraph": [
+        "Dairyfood Online menyediakan beragam opsi pembayaran",
+        "untuk memudahkan Anda bertransaksi, yaitu transfer,",
+        "bayar di tempat, term-of-payment, dan cicilan"
+      ],
+      "buttonText": "Unduh Sekarang",
+      "buttonLink": "/",
+
+      "img": "/assets/layanan 4.webp"
+    }
+  ]
+}

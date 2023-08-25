@@ -1,0 +1,53 @@
+{
+  "projects": {
+    "default": "dairy-food-development",
+    "production": "dairy-food-production"
+  },
+  "targets": {
+    "dairy-food-development": {
+      "hosting": {
+        "dairy-food-development": [
+          "dairy-food-development"
+        ],
+        "admin-dashboard-df-dev": [
+          "admin-dashboard-df-dev"
+        ],
+        "branch-dashboard-df-dev": [
+          "branch-dashboard-df-dev"
+        ],
+        "warehouse-dashboard-df-dev": [
+          "warehouse-dashboard-df-dev"
+        ],
+        "sales-admin-dashboard-df-dev": [
+          "sales-admin-dashboard-df-dev"
+        ],
+        "finance-dashboard-df-dev": [
+          "finance-dashboard-df-dev"
+        ]
+      }
+    },
+    "dairy-food-production": {
+      "hosting": {
+        "dairy-food-production": [
+          "dairy-food-production"
+        ],
+        "system-admin-df": [
+          "system-admin-df"
+        ],
+        "finance-admin-df": [
+          "finance-admin-df"
+        ],
+        "branch-admin-df": [
+          "branch-admin-df"
+        ],
+        "sales-admin-df": [
+          "sales-admin-df"
+        ],
+        "warehouse-admin-df": [
+          "warehouse-admin-df"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

@@ -1,0 +1,14 @@
+{
+    "code": 200,
+    "data": {
+        "items": [
+            {
+                "id": "string",
+                "type": "string",
+                "imageUrl": "string",
+                "createdAt": "2022-12-16T09:19:36.283Z"
+            }
+        ]
+    },
+    "message": "ok"
+}

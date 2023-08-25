@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "title": "Beranda",
+    "url": "/"
+  },
+  {
+    "id": 2,
+    "title": "Layanan",
+    "url": "/services"
+  },
+  {
+    "id": 3,
+    "title": "Tentang Kami",
+    "url": "/about"
+  },
+  {
+    "id": 4,
+    "title": "Bantuan",
+    "url": "/help"
+  }
+]

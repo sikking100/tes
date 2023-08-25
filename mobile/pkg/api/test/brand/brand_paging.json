@@ -1,0 +1,23 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "next": {
+            "pageNumber": 0,
+            "pageLimit": 0
+        },
+        "back": {
+            "pageNumber": 0,
+            "pageLimit": 0
+        },
+        "items": [
+            {
+                "id": "string",
+                "name": "string",
+                "imageUrl": "string",
+                "createdAt": "2022-12-08T06:52:19.128Z",
+                "updatedAt": "2022-12-08T06:52:19.128Z"
+            }
+        ]
+    }
+}

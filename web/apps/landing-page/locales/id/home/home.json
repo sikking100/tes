@@ -1,0 +1,86 @@
+{
+  "hero": {
+    "title": "Dairyfood Online",
+    "paragraph": ["Bringing the world's best", "bakery ingredients to you"],
+    "buttonText": "Download Sekarang",
+    "logoApp": ["/assets/play store.webp", "/assets/app store.webp"],
+    "img": "/hero/hero-image.webp"
+  },
+  "afterHero": {
+    "id": 1,
+    "text": "",
+    "heading": ["One-stop-shop", "for all your bakery", "needs."],
+    "paragraph": [
+      "Dairyfood Online adalah aplikasi yang menyediakan segala jenis bahan bakery untuk kebutuhan usaha dan rumah tangga Anda."
+    ],
+    "buttonText": "Unduh Sekarang",
+    "img": "/assets/beranda 2.webp",
+    "link": "/blog/grocee-pay"
+  },
+  "kategori": {
+    "title": "Temukan beragam produk dari merek-merek ternama",
+    "products": [
+      {
+        "name": "Kudapan",
+        "img": "/kategori/1 cheesy.webp"
+      },
+      {
+        "name": "Aneka Minuman",
+        "img": "/kategori/2 corman.webp"
+      },
+      {
+        "name": "Warung & Resto",
+        "img": "/kategori/3 dairygold.webp"
+      },
+      {
+        "name": "Elektronik & Gawai",
+        "img": "/kategori/4 nzmp.webp"
+      },
+      {
+        "name": "Fesyen",
+        "img": "/kategori/5 nippn.webp"
+      },
+      {
+        "name": "Hobi & Olahraga",
+        "img": "/kategori/6 bakerstar.webp"
+      },
+      {
+        "name": "Ibu & Bayi",
+        "img": "/kategori/7 bruggeman.webp"
+      },
+      {
+        "name": "Otomotif",
+        "img": "/kategori/8 victoria.webp"
+      },
+      {
+        "name": "Parsel & Ucapan",
+        "img": "/kategori/9 falcon.webp"
+      },
+      {
+        "name": "Parsel & Ucapan",
+        "img": "/kategori/10 darigold.webp"
+      },
+      {
+        "name": "Parsel & Ucapan",
+        "img": "/kategori/11 madera.webp"
+      },
+      {
+        "name": "Parsel & Ucapan",
+        "img": "/kategori/12 milko.webp"
+      },
+      {
+        "name": "Parsel & Ucapan",
+        "img": "/kategori/13 bakels.webp"
+      }
+    ]
+  },
+  "afterKategori": {
+    "heading": ["Belanja dengan mudah", "dan nyaman"],
+    "text": [
+      "Pesan sekarang kebutuhan Anda dengan mudah melalui aplikasi Dairyfood Online dimanapun Anda berada.",
+      "Atur jadwal pengiriman secara fleksibel dan pantau prosesnya secara realtime."
+    ],
+    "link": "",
+    "img": "/assets/beranda 3b.webp"
+  }
+}

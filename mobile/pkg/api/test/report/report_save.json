@@ -1,0 +1,21 @@
+{
+    "to": {
+        "id": "string",
+        "name": "string",
+        "roles": "string",
+        "imageUrl": "string",
+        "description": "string"
+    },
+    "from": {
+        "id": "string",
+        "name": "string",
+        "roles": "string",
+        "imageUrl": "string",
+        "description": "string"
+    },
+    "title": "string",
+    "description": "string",
+    "team": "string",
+    "roles": "string",
+    "region": "string"
+}

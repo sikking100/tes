@@ -1,0 +1,28 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "from": {
+            "id": "string",
+            "name": "string",
+            "roles": "string",
+            "imageUrl": "string",
+            "description": "string"
+        },
+        "to": {
+            "id": "string",
+            "name": "string",
+            "roles": "string",
+            "imageUrl": "string",
+            "description": "string"
+        },
+        "roles": "string",
+        "team": "string",
+        "region": "string",
+        "title": "string",
+        "imageUrl": "string",
+        "filePath": "string",
+        "sendDate": "2022-11-27T01:43:19.030Z"
+    }
+}

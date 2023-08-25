@@ -1,0 +1,57 @@
+{
+  "title": "Temukan beragam produk dari merek-merek ternama",
+  "products": [
+    {
+      "name": "Kudapan",
+      "img": "/kategori/1 cheesy.webp"
+    },
+    {
+      "name": "Aneka Minuman",
+      "img": "/kategori/2 corman.webp"
+    },
+    {
+      "name": "Warung & Resto",
+      "img": "/kategori/3 dairygold.webp"
+    },
+    {
+      "name": "Elektronik & Gawai",
+      "img": "/kategori/4 nzmp.webp"
+    },
+    {
+      "name": "Fesyen",
+      "img": "/kategori/5 nippn.webp"
+    },
+    {
+      "name": "Hobi & Olahraga",
+      "img": "/kategori/6 bakerstar.webp"
+    },
+    {
+      "name": "Ibu & Bayi",
+      "img": "/kategori/7 bruggeman.webp"
+    },
+    {
+      "name": "Otomotif",
+      "img": "/kategori/8 victoria.webp"
+    },
+    {
+      "name": "Parsel & Ucapan",
+      "img": "/kategori/9 falcon.webp"
+    },
+    {
+      "name": "Parsel & Ucapan",
+      "img": "/kategori/10 darigold.webp"
+    },
+    {
+      "name": "Parsel & Ucapan",
+      "img": "/kategori/11 madera.webp"
+    },
+    {
+      "name": "Parsel & Ucapan",
+      "img": "/kategori/12 milko.webp"
+    },
+    {
+      "name": "Parsel & Ucapan",
+      "img": "/kategori/13 bakels.webp"
+    }
+  ]
+}

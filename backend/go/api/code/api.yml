@@ -1,0 +1,240 @@
+openapi: '3.0.2'
+info:
+  title: Code API
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  /code/v1:
+    get:
+      summary: "[all user]"
+      description: find code
+      parameters: 
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            maximum: 100
+      responses:
+        200:
+          $ref: '#/components/responses/Page'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  /code/v1/{id}:
+    get:
+      summary: "[all user]"
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Code'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      summary: "[sales admin]"
+      description: "create or update code"
+      parameters:
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        $ref: '#/components/requestBodies/Save'
+      responses:
+        200:
+          $ref: '#/components/responses/Code'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    delete:
+      summary: "[sales admin]"
+      description: "delete code by id"
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Code'  
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        500:
+          $ref: '#/components/responses/500'
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Code:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Save:
+      type: object
+      properties:
+        description:
+          type: string
+    Page:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Code'
+
+  requestBodies:
+    Save:
+      description: Code Object
+      content:
+        application/json:
+          schema:
+           $ref: '#/components/schemas/Save'
+
+  responses:
+    Code:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Code'
+              errors:
+                type: string
+                nullable: true
+                default: null 
+                
+               
+    Page:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Page'
+              errors:
+                type: string
+                nullable: true
+                default: null
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "not found"  
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"
+
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

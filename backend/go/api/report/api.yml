@@ -1,0 +1,330 @@
+openapi: '3.0.2'
+info:
+  title: Report API
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  
+  /report/v1:
+    post:
+      summary: Create Report
+      description: Create Report
+      tags: ["LEADER"]
+      requestBody:
+        $ref: '#/components/requestBodies/Save'
+      responses:
+        '200':
+          $ref: '#/components/responses/Report'  
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+    get:
+      summary: Find Report List
+      description: Find Report List
+      tags: ["LEADER"]
+      parameters:
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            maximum: 100
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: string 
+      responses:
+        '200':
+          $ref: '#/components/responses/Page'  
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+  
+  /report/v1/{id}:
+    get:
+      summary: Find Report By Id
+      description: Find Report By Id
+      tags: ["LEADER"]
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/Report'  
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      summary: Delete Report By Id
+      description: Delete Report By Id
+      tags: ["LEADER"]
+      parameters:
+        - $ref: '#/components/parameters/id'
+      responses:
+        '200':
+          $ref: '#/components/responses/Report'  
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '500':
+          $ref: '#/components/responses/500'
+
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Report:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 001
+        from:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            roles:
+              type: number
+            imageUrl:
+              type: string
+            description:
+              type: string
+              default: "Branch Name/Region Name/-"
+        to:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            roles:
+              type: number
+            imageUrl:
+              type: string
+            description:
+              type: string
+              default: "Branch Name/Region Name/-"
+        title:
+          type: string
+          example: Ini Judul
+        imageUrl:
+          type: string
+          format: url
+          example: https://storage.googleapis.com/dairy-food-development.appspot.com/default/user.png
+        filePath:
+          type: string
+          example: report/AM-001/file.pdf
+        sendDate:
+          type: string
+    Save:
+      type: object
+      properties:
+        to:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            roles:
+              type: number
+            imageUrl:
+              type: string
+            description:
+              type: string
+              default: "Branch Name/Region Name/-"
+        from:
+          type: object
+          properties:
+            id:
+              type: string
+            name:
+              type: string
+            roles:
+              type: number
+            imageUrl:
+              type: string
+            description:
+              type: string
+              default: "Branch Name/Region Name/-"
+        title:
+          type: string
+          example: ini judul
+        description:
+          type: string
+          example: ini deskripsi
+    Page:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+      
+    
+  requestBodies:
+    Save:
+      description: Report Object
+      content:
+        application/json:
+          schema:
+           $ref: '#/components/schemas/Save'
+  responses:
+    Report:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Report'
+              errors:
+                type: string
+                nullable: true
+                default: null   
+    Page:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/Page'
+              errors:
+                type: string
+                nullable: true
+                default: null 
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    403:
+      description: "forbidden"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 403
+              data:
+                default: null
+              errors:
+                type: string
+                default: "forbidden"
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "not found"  
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"  
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

@@ -1,0 +1,369 @@
+  openapi: 3.0.3
+  info:
+    title: Branch Api
+    version: 1.0.0
+  servers:
+    - description: develop
+      url: https://apigateway-service-ckndvuglva-et.a.run.app
+    - description: local
+      url: http://localhost:8080
+  paths:   
+    /location-branch/v1:
+      get:
+        summary: "[all user]"
+        description: "find branch"
+        parameters: 
+          - name: num
+            in: query
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+          - name: limit
+            in: query
+            required: true
+            schema:
+              type: integer
+              minimum: 1
+              maximum: 100
+          - name: regionId
+            in: query
+            required: false
+            schema:
+              type: string
+          - name: search
+            in: query
+            required: false
+            schema:
+              type: string  
+        responses:
+          200:
+            $ref: '#/components/responses/Page'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'  
+          500:
+            $ref: '#/components/responses/500'   
+    /location-branch/v1/find/near:
+      get:
+        summary: "[all user]"
+        description: "find branch by near"
+        parameters: 
+          - name: lng
+            in: query
+            required: true
+            schema:
+              type: number
+              format: double
+          - name: lat
+            in: query
+            required: true
+            schema:
+              type: number
+              format: double
+        responses:
+          200:
+            $ref: '#/components/responses/Branch'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'  
+          500:
+            $ref: '#/components/responses/500'           
+    /location-branch/v1/{id}:
+      get:
+        summary: "[all user]"
+        description: "find branch by id"
+        parameters: 
+          - $ref: '#/components/parameters/id'
+        responses:
+          200:
+            $ref: '#/components/responses/Branch'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'  
+          500:
+            $ref: '#/components/responses/500'
+      post:
+        summary: "[system admin]"
+        description: "upsert branch by id"
+        parameters: 
+          - $ref: '#/components/parameters/id'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveBranch'
+        responses:
+          200:
+            $ref: '#/components/responses/Branch'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'  
+          500:
+            $ref: '#/components/responses/500'
+      put:
+        summary: "[branch admin]"
+        description: "update list warehouse by branch id"
+        parameters: 
+          - $ref: '#/components/parameters/id'
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SaveWarehouse'
+        responses:
+          200:
+            $ref: '#/components/responses/Branch'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'  
+          500:
+            $ref: '#/components/responses/500'
+      delete:
+        summary: "[system admin]"
+        description: "delete branch by id"
+        parameters: 
+          - $ref: '#/components/parameters/id'
+        responses:
+          200:
+            $ref: '#/components/responses/Branch'
+          400:
+            $ref: '#/components/responses/400'
+          401:
+            $ref: '#/components/responses/401'
+          404:
+            $ref: '#/components/responses/404'  
+          500:
+            $ref: '#/components/responses/500'
+  components:
+    parameters:    
+      id:
+        name: id
+        in: path
+        required: true
+        schema:
+          type: string   
+    schemas:
+      Region:
+        type: object
+        properties:
+          id: 
+            type: string
+          name:
+            type: string
+      Address:
+        type: object
+        properties:
+          name:
+            type: string
+          lngLat:
+            type: array
+            items:
+              type: number
+              format: double
+      Warehouse:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          phone:
+            type: string
+          address:
+            $ref: '#/components/schemas/Address'
+          isDefault:
+            type: boolean
+      Branch:
+        type: object
+        properties:
+          id: 
+            type: string  
+          region:
+            $ref: '#/components/schemas/Region'
+          name:
+            type: string
+          address:
+            $ref: '#/components/schemas/Address'
+          warehouse:
+            type: array
+            items:
+              $ref: '#/components/schemas/Warehouse'
+          createdAt:
+            type: string
+            format: date-time
+          updatedAt:
+            type: string
+            format: date-time
+      SaveBranch:
+        type: object
+        properties:
+          regionId:
+            type: string
+          regionName:
+            type: string
+          name:
+            type: string 
+          address:
+            type: string
+          addressLat:
+            type: number
+            format: double
+          addressLng:
+            type: number
+            format: double
+          
+          
+      SaveWarehouse:
+        type: object
+        properties:
+          id:
+            type: string
+          name:
+            type: string 
+          phone:
+            type: string
+          address:
+            type: string
+          addressLat:
+            type: number
+            format: double
+          addressLng:
+            type: number
+            format: double
+          isDefault:
+            type: boolean  
+      Page:
+        type: object
+        properties:
+          back:
+            type: integer
+            nullable: true
+            default: null
+          next:
+            type: integer
+            nullable: true 
+            default: null
+          limit:
+            type: integer
+            default: 10
+          regionId:
+            type: string
+          search:
+            type: string
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Branch'      
+    responses:
+      Branch:
+        description: "ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 200
+                data:
+                   $ref: '#/components/schemas/Branch'
+                errors:
+                  type: string
+                  nullable: true
+                  default: null
+      Page:
+        description: "ok"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 200
+                data: 
+                  $ref: '#/components/schemas/Page'  
+                errors:
+                  type: string
+                  nullable: true
+                  default: null  
+      400:
+        description: "Invalid input"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 400
+                data:
+                  default: null  
+                errors:
+                  type: string
+                  default: "Invalid input"
+      401:
+        description: "unauthorized"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 401
+                data:
+                  default: null
+                errors:
+                  type: string
+                  default: "unauthorized"  
+      404:
+        description: "not found"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 404
+                data:
+                  default: null
+                errors:
+                  type: string
+                  default: "not found"  
+      500:
+        description: "the system is busy, please try again later"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  default: 500
+                data:
+                  default: null
+                errors:
+                  type: string
+                  default: "the system is busy, please try again later"
+    securitySchemes:
+      local:
+        type: apiKey
+        in: header
+        name: Auth-User
+      authjwt:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT  
+  security:
+    - local: []
+    - authjwt: []

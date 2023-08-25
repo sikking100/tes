@@ -1,0 +1,10 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "name": "string",
+        "createdAt": "2022-12-08T06:32:37.773Z",
+        "updatedAt": "2022-12-08T06:32:37.773Z"
+    }
+}

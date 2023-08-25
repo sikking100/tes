@@ -1,0 +1,11 @@
+{
+    "id": "string",
+    "amount": 0,
+    "paymentChannel": "string",
+    "paymentMethod": "string",
+    "paymentDestination": "string",
+    "message": "string",
+    "status": 0,
+    "paidAt": "2022-12-28T14:32:08.633Z",
+    "expiredAt": "2022-12-28T14:32:08.633Z"
+}

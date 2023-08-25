@@ -1,0 +1,13 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "category": "string",
+        "title": "string",
+        "imageUrl": "string",
+        "description": "string",
+        "createdAt": "2022-11-27T01:43:19.030Z",
+        "updatedAt": "2022-11-27T01:43:19.030Z"
+    }
+}

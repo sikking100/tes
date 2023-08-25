@@ -1,0 +1,11 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": [
+        {
+            "categoryId": "string",
+            "categoryName": "string",
+            "qty": 0
+        }
+    ]
+}

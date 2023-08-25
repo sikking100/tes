@@ -1,0 +1,91 @@
+{
+    "geocoded_waypoints": [
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJUyLOQSD2aS4RunY-sLoa5A4",
+            "types": [
+                "street_address"
+            ]
+        },
+        {
+            "geocoder_status": "OK",
+            "place_id": "ChIJB9jlLmsCai4R-UijxkLOmaY",
+            "types": [
+                "establishment",
+                "parking",
+                "point_of_interest"
+            ]
+        }
+    ],
+    "routes": [
+        {
+            "bounds": {
+                "northeast": {
+                    "lat": -6.0987662,
+                    "lng": 106.7930763
+                },
+                "southwest": {
+                    "lat": -6.141465,
+                    "lng": 106.6489313
+                }
+            },
+            "copyrights": "Map data ©2022",
+            "legs": [
+                {
+                    "distance": {
+                        "text": "23,2 km",
+                        "value": 23187
+                    },
+                    "duration": {
+                        "text": "58 menit",
+                        "value": 3496
+                    },
+                    "end_address": "VMG3+89C, Pajang, Kec. Benda, Kota Tangerang, Banten 15126, Indonesia",
+                    "end_location": {
+                        "lat": -6.1240275,
+                        "lng": 106.6535296
+                    },
+                    "start_address": "Jl. Jemb. Dua Raya No.15, RT.5/RW.4, Pejagalan, Kec. Penjaringan, Kota Jkt Utara, Daerah Khusus Ibukota Jakarta 14450, Indonesia",
+                    "start_location": {
+                        "lat": -6.138698499999999,
+                        "lng": 106.7930763
+                    },
+                    "steps": [
+                        {
+                            "distance": {
+                                "text": "0,1 km",
+                                "value": 141
+                            },
+                            "duration": {
+                                "text": "1 menit",
+                                "value": 10
+                            },
+                            "end_location": {
+                                "lat": -6.1374387,
+                                "lng": 106.7929478
+                            },
+                            "html_instructions": "Ke arah <b>utara</b> di <b>Jl. Jemb. Dua Raya</b>",
+                            "polyline": {
+                                "points": "z}md@w_yjSA?{BJg@BuAH"
+                            },
+                            "start_location": {
+                                "lat": -6.138698499999999,
+                                "lng": 106.7930763
+                            },
+                            "travel_mode": "DRIVING"
+                        }
+                    ],
+                    "traffic_speed_entry": [],
+                    "via_waypoint": []
+                }
+            ],
+            "overview_polyline": {
+                "points": "z}md@w_yjS}H^mGPqI`@iDTcFTW?NTJLJREfCOzC_AbI{@nHGlAo@|Gh@\\f@Ld@@v@EpG{@lLcBXEh@U|BmAbFoCHG@PFpAjAtCl@tBADUf@u@`AGXCv@NhDBhATtGXnH^zGPlED`AFh@LXJjAFx@F~ADv@Cb@IrA~@P`@DlA?dCAn@@|@RbATf@PLFG^Uz@@bAH~ALvC?r@c@nEWhCC|@UbCUnD[dCQ~@w@zCaA~Dy@`Du@fDw@tCaA|DaAvEmB|HiDrNcBtGs@zC_A|CmCpIQl@cArBUp@i@hC]bBW~@kA`Ck@|@_@h@uBlBc@p@iBlCy@fA_ApAYp@Oh@cBlCaB~B{@nAO\\yAlCeA~BuAlE}CfIiFnLmCrEeCvDuC`EmD|EaArAc@p@MbAGPeBvBmAhA_AhAy@jA|AbAQf@g@n@GBu@_@aAa@g@h@qB~BcClCeDbDuGfHcBvA_Ap@kFdDuA`Ak@h@{D~C}DzCwDnCqCrBqAz@kB|Ag@XaAn@eAt@aFbDu@v@}@n@_@VwAh@uBzAoBpAqA`AgAt@Wj@W\\qB~A_Bv@yB|@eBp@uCtAcCfAkA^aAd@i@PuAp@yAh@{@Po@Dk@Pa@\\S\\vHhGbAp@jClA~Bv@|@h@r@h@~B`Bl@d@|AxAR`@NZ@`@@V@XFrB?bBFXTxAXpCFl@RzAZ~@nAhBL^lC~K`ArD|@pBp@hA|A|Cv@fBR\\f@f@~AdAtA`AZX`FhDlAn@l@b@NTBZOp@St@C`@Hb@^p@pAhBrAzAfCpC^|@J`@?lAEzEXt@t@bAx@zAb@fAn@dALx@FjATrBRpAFBBDLh@VTZK|@IdGIh@EnGKhBCL@\\HVPn@h@h@^~@j@j@Vf@JdAPNH\\VN\\BZQvBAlBFRBNK`@En@Eb@IXWd@WVa@Lq@JeAByIFsELW??DRTb@TLPHX@n@C^An@D\\HTRXZp@JR\\Rp@Xx@XLRPr@B`@K~@G\\GvAcFxA_@PUZX~@HVvBrHfHbVnFzQhDjLVz@F?D@PX^z@r@t@vChBhAx@f@d@x@jAXn@x@pCrGjTnDlLnAbE\\|AnCzIpAdEhCnJjGtSbBtFNx@Ab@I^KTYVq@XeCv@oCr@e@Hs@A]KUMUWmAsDw@sBOu@uA_FWy@kCaJKUCCE?CAEBIPX`AqA\\q@JMBW@QH"
+            },
+            "summary": "Jl. Kapuk Raya",
+            "warnings": [],
+            "waypoint_order": []
+        }
+    ],
+    "status": "OK"
+}

@@ -1,0 +1,4 @@
+{
+    "accept": "application/json",
+    "Authorization": "Bearer token"
+}

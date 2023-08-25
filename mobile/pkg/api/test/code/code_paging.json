@@ -1,0 +1,16 @@
+{
+    "code": 200,
+    "data": {
+        "back": null,
+        "items": [
+            {
+                "id": "JKT01",
+                "description": "ccc",
+                "createdAt": "2022-12-15T07:17:51.834Z",
+                "updatedAt": "2022-12-15T07:17:51.834Z"
+            }
+        ],
+        "next": null
+    },
+    "message": "ok"
+}

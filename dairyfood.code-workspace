@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": ".",
+		},
+		{
+			"path": ".github/workflows",
+			"name": "workflows"
+		},
+		{
+			"path": "./backend/go",
+			"name": "backend-go"
+		},
+		{
+			"path": "./backend/generate-token",
+			"name": "generate-token"
+		},
+	],
+}

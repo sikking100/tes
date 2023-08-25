@@ -1,0 +1,872 @@
+openapi: "3.0.2"
+info:
+  title: Order API
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  /order/v1:
+    get:
+      tags: ["order"]
+      summary: "[all user]"
+      description: "find order"
+      parameters:
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: query
+          in: query
+          required: false
+          description: "userid,regionId,branchId,code,status"
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/Page"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      tags: ["order"]
+      summary: "[all user]"
+      description: "create order"
+      requestBody:
+        $ref: "#/components/requestBodies/Create"
+      responses:
+        200:
+          $ref: "#/components/responses/Order"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        406:
+          $ref: "#/components/responses/406"
+        500:
+          $ref: "#/components/responses/500"
+  /order/v1/{id}:
+    get:
+      tags: ["order"]
+      summary: "[all user]"
+      description: "find order by id"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/Order"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags: ["order"]
+      summary: "[branch sales admin, sales admin]"
+      description: "cancel order cod only"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cancel"
+      responses:
+        200:
+          $ref: "#/components/responses/Order"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  /order/v1/find/report:
+    get:
+      tags: ["order"]
+      summary: "[branch sales admin, branch finance admin,sales admin,finance admin]"
+      description: "find report"
+      parameters:
+        - name: startAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: endAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: query
+          in: query
+          schema:
+            type: string
+      responses:
+        200:
+          description: "report order"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Report"
+                  errors:
+                    default: null
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /order/v1/find/performance:
+    get:
+      tags: ["order"]
+      summary: "[branch sales admin, sales admin, leader]"
+      description: "find report"
+      parameters:
+        - name: startAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: endAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: team
+          in: query
+          required: true
+          description: "1.FOOD</br>2.RETAIL"
+          schema:
+            type: integer
+        - name: query
+          in: query
+          schema:
+            type: string
+
+      responses:
+        "200":
+          description: "performance order"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Performance"
+                  errors:
+                    default: null
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /order/v1/transaction/last-month:
+    get:
+      tags: ["order"]
+      summary: "[all user]"
+      description: "find transaction last month"
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "transaction"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: number
+                    format: double
+                  errors:
+                    default: null
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /order/v1/transaction/per-month:
+    get:
+      tags: ["order"]
+      summary: "[all user]"
+      description: "find transaction per month"
+      parameters:
+        - name: customerId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: "transaction"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: number
+                    format: double
+                  errors:
+                    default: null
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /order-apply/v1:
+    get:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "find order apply"
+      parameters:
+        - name: type
+          in: query
+          description: "0.WAITING APPROVE</br>1.HISTORY"
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: "#/components/responses/ListApply"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /order-apply/v1/{id}:
+    get:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "find order apply by id"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/Apply"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "approve"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MakeApprove"
+      responses:
+        200:
+          $ref: "#/components/responses/Apply"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    patch:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "reject"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MakeApprove"
+      responses:
+        200:
+          $ref: "#/components/responses/Apply"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        categoryId:
+          type: string
+        categoryName:
+          type: string
+        team:
+          type: integer  
+        brandId:
+          type: string
+        brandName:
+          type: string
+        salesId:
+          type: string
+        salesName:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        size:
+          type: string
+        imageUrl:
+          type: string
+        point:
+          type: number
+          format: float
+        unitPrice:
+          type: number
+          format: double
+        discount:
+          type: number
+          format: double
+        qty:
+          type: integer
+        totalPrice:
+          type: number
+          format: double
+        tax:
+          type: number
+          format: double
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        imageUrl:
+          type: string
+        picName:
+          type: string
+        picPhone:
+          type: string
+        addressName:
+          type: string
+        addressLngLat:
+          type: array
+          items:
+            type: number
+            format: double
+        note:
+          type: string
+    Creator:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        imageUrl:
+          type: string
+        roles:
+          type: integer
+    Cancel:
+      type: object
+      nullable: true
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        imageUrl:
+          type: string
+        roles:
+          type: integer
+        note:
+          type: string
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        isComplete:
+          type: boolean
+    Delivery:
+      type: object
+      properties:
+        id:
+          type: string
+        isComplete:
+          type: boolean
+    Order:
+      type: object
+      properties:
+        id:
+          type: string
+        invoiceId:
+          type: string
+        deliveryId:
+          type: string
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        priceId:
+          type: string
+        priceName:
+          type: string
+        code:
+          type: string
+        customer:
+          $ref: "#/components/schemas/Customer"
+        creator:
+          $ref: "#/components/schemas/Creator"
+        cancel:
+          $ref: "#/components/schemas/Cancel"
+        product:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        deliveryPrice:
+          type: number
+          format: double
+        productPrice:
+          type: number
+          format: double
+        totalPrice:
+          type: number
+          format: double
+        poFilePath:
+          type: string
+        status:
+          type: integer
+          description: "0.APPLY</br>1.PENDING</br>2.COMPLETE</br>3.CANCEL"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    Page:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+        next:
+          type: integer
+          nullable: true
+        limit:
+          type: integer
+        query:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Order"
+    Create:
+      type: object
+      properties:
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        priceId:
+          type: string
+        priceName:
+          type: string
+        code:
+          type: string
+        customer:
+          $ref: "#/components/schemas/Customer"
+        creator:
+          $ref: "#/components/schemas/Creator"
+        cancel:
+          $ref: "#/components/schemas/Cancel"
+        product:
+          type: array
+          items:
+            $ref: "#/components/schemas/Product"
+        paymentMethod:
+          type: integer
+          description: "0.COD</br>1.TOP</br>2.TRA"
+        deliveryType:
+          type: integer
+          description: "0.INTERNAL</br>1.EXTERNAL"
+        deliveryPrice:
+          type: number
+          format: double
+        productPrice:
+          type: number
+          format: double
+        totalPrice:
+          type: number
+          format: double
+        deliveryAt:
+          type: string
+          format: date-time
+        poFilePath:
+          type: string
+        termInvoice:
+          type: integer
+        creditLimit:
+          type: number
+          format: double
+        creditUsed:
+          type: number
+          format: double
+        transactionLastMonth:
+          type: number
+          format: double
+        transactionPerMonth:
+          type: number
+          format: double
+        userApprover:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserApprover"
+    Report:
+      type: object
+      properties:
+        orderId:
+          type: string
+        salesId:
+          type: string
+        salesName:
+          type: string
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        priceId:
+          type: string
+        priceName:
+          type: string
+        customerId:
+          type: string
+        customerName:
+          type: string
+        productId:
+          type: string
+        productName:
+          type: string
+        productQty:
+          type: integer
+        productDiscount:
+          type: number
+          format: double
+        productUnitPrice:
+          type: number
+          format: double
+        productTotalPrice:
+          type: number
+          format: double
+        tax:
+          type: number
+          format: double
+        productPoint:
+          type: number
+          format: double
+        createdAt:
+          type: string
+          format: date-time
+    Performance:
+      type: object
+      properties:
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        categoryId:
+          type: string
+        categoryName:
+          type: string
+        categoryTarget:
+          type: integer
+        qty:
+          type: integer
+    UserApprover:
+      type: object
+      properties:
+        id:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        imageUrl:
+          type: string
+        roles:
+          type: integer
+        fcmToken:
+          type: string
+        status:
+          type: integer
+          description: "0.PENDING</br>1.WAITING APPROVE</br>2.APPROVE</br>3.REJECT"
+        note:
+          type: string
+        updatedAt:
+          type: string
+          format: date-time
+    Apply:
+      type: object
+      properties:
+        id:
+          type: string
+        userApprover:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserApprover"
+        customerId:
+          type: string
+        overLimit:
+          type: number
+          format: double
+        overDue:
+          type: number
+          format: double
+        totalPrice:
+          type: number
+          format: double
+        status:
+          type: integer
+          description: "0.PENDING</br>1.WAITING APPROVE</br>2.APPROVE</br>3.REJECT"
+        expiredAt:
+          type: string
+          format: date-time
+    MakeApprove:
+      type: object
+      properties:
+        userId:
+          type: string
+        note:
+          type: string
+        userApprover:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserApprover"
+            
+  requestBodies:
+    Create:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Create"
+  responses:
+    Order:
+      description: "order"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: "#/components/schemas/Order"
+              errors:
+                default: null
+    Page:
+      description: "page order"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: "#/components/schemas/Page"
+              errors:
+                default: null
+    Apply:
+      description: "order apply"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: "#/components/schemas/Apply"
+              errors:
+                default: null
+    ListApply:
+      description: "list order apply"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Apply"
+              errors:
+                default: null
+    400:
+      description: "Invalid input, make sure all inputs are correct"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null
+              errors:
+                type: string
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+    406:
+      description: "paylater not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 406
+              data:
+                default: null
+              errors:
+                type: string
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+security:
+  - local: []
+  - authjwt: []

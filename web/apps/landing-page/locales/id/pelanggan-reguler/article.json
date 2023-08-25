@@ -1,0 +1,17 @@
+{
+  "items": [
+    {
+      "_title": "Pelanggan Reguler",
+      "_paragraph": [
+        "Pelanggan Reguler adalah pelanggan yang diberikan fasilitas kredit sehingga dapat melakukan pembayaran mundur. Untuk menjadi Pelanggan Reguler, Anda wajib melakukan transaksi terlebih dahulu."
+      ],
+      "title": "Belum punya aplikasinya?",
+      "paragraph": [
+        "Download Dairyfood Online, lakukan transaksi, kemudian upgrade akun Anda menjadi pelanggan Reguler."
+      ],
+      "buttonText": "Unduh Sekarang",
+      "buttonLink": "/",
+      "img": "/assets/pelanggan reguler.webp"
+    }
+  ]
+}

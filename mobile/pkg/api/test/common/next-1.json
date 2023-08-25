@@ -1,0 +1,7 @@
+{
+    "pageNumber": 0,
+    "pageLimit": 0,
+    "roles": "string",
+    "regionId": "string",
+    "branchId": "string"
+}

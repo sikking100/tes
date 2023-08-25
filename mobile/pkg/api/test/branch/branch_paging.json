@@ -1,0 +1,34 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "back": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "regionId": "string"
+        },
+        "next": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "regionId": "string"
+        },
+        "items": [
+            {
+                "id": "string",
+                "region": {
+                    "id": "string",
+                    "name": "string",
+                    "createdAt": "2022-12-19T14:26:39.679Z",
+                    "updatedAt": "2022-12-19T14:26:39.679Z"
+                },
+                "name": "string",
+                "address": {
+                    "name": "string",
+                    "lngLat": "string"
+                },
+                "createdAt": "2022-12-19T14:26:39.679Z",
+                "updatedAt": "2022-12-19T14:26:39.679Z"
+            }
+        ]
+    }
+}

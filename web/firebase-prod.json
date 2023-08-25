@@ -1,0 +1,74 @@
+{
+  "hosting": [
+    {
+      "public": "apps/landing-page/out",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "dairy-food-production",
+      "cleanUrls": true,
+      "rewrites": [
+        {
+          "source": "/**",
+          "dynamicLinks": true
+        }
+      ]
+    },
+    {
+      "public": "apps/system-admin/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "system-admin-df",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "public": "apps/branch-admin/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "branch-admin-df",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "public": "apps/warehouse-admin/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "warehouse-admin-df",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "public": "apps/sales-admin/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "sales-admin-df",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    },
+    {
+      "public": "apps/finance-admin/dist",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "target": "finance-admin-df",
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ],
+  "projects": {
+    "default": "dairy-food-production"
+  }
+}

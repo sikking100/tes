@@ -1,0 +1,421 @@
+openapi: 3.0.2
+info:
+  title: Invoice API
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  /invoice/v1:
+    get:
+      tags: ["invoice"]
+      summary: "[all user]"
+      description: "find invoice"
+      parameters:
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: type
+          in: query
+          required: false
+          description: "0.WAITING PAY</br>1.OVERDUE</br>2.HISTORY"
+          schema:
+            type: integer
+        - name: query
+          in: query
+          description: "userid,branchId,regionId,paymentMethod"
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: "#/components/responses/Page"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/{id}:
+    get:
+      tags: ["invoice"]
+      summary: "[all user]"
+      description: "find invoice by id"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/Invoice"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/{id}/make-payment:
+    post:
+      tags: ["invoice"]
+      summary: "[customer, branch finance admin, finance admin]"
+      description: "make payment, payment method TRA or TOP"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/Invoice"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/{id}/complete-payment:
+    post:
+      tags: ["invoice"]
+      summary: "[branch finance admin, finance admin]"
+      description: "complete payment, payment method COD or TOP"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CompletePayment"
+      responses:
+        200:
+          $ref: "#/components/responses/Invoice"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/{id}/by-order:
+    get:
+      tags: ["invoice"]
+      summary: "[all user]"
+      description: "find invoice by order id"
+      parameters:
+        - $ref: "#/components/parameters/id"
+      responses:
+        200:
+          $ref: "#/components/responses/ListInvoice"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/find/report:
+    get:
+      tags: ["invoice"]
+      summary: "[branch finance admin, finance admin]"
+      description: "find report"
+      parameters:
+        - name: startAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: endAt
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date-time
+        - name: query
+          in: query
+          description: "regionId,branchId,paymentMethod"
+          schema:
+            type: string
+      responses:
+        200:
+          description: "report invoice"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Invoice"
+                  errors:
+                    default: null
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  /invoice/v1/callback:
+    post:
+      tags: ["invoice"]
+      summary: "[thrid party]"
+      description: "invoice callback"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                external_id:
+                  type: string
+                amount:
+                  type: number
+                  format: double
+                status:
+                  type: string
+                  enum: ["PAID", "EXPIRED"]
+                payment_method:
+                  type: string
+                payment_channel:
+                  type: string
+                payment_destination:
+                  type: string
+      responses:
+        "200":
+          description: "count"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  message:
+                    default: "ok"
+                  data:
+                    type: string
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: string
+        transactionId:
+          type: string
+        orderId:
+          type: string
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+        customer:
+          $ref: "#/components/schemas/Customer"
+        price:
+          type: number
+          format: double
+        paid:
+          type: number
+          format: double
+        channel:
+          type: string
+        method:
+          type: string
+          description: "customer make payment method ex. bank trf/credit card"
+        destination:
+          type: string
+        paymentMethod:
+          type: integer
+          description: "0.COD</br>1.TOP</br>2.TRA"
+        url:
+          type: string
+        status:
+          type: integer
+          description: "0.APPLY</br>1.PENDING</br>2.WAITING PAY</br>3.PAID</br>4.CANCEL"
+        term:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+        paidAt:
+          type: string
+          format: date-time
+    Page:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+        next:
+          type: integer
+          nullable: true
+        limit:
+          type: integer
+        type:
+          type: integer
+        query:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Invoice"
+    CompletePayment:
+      type: object
+      properties:
+        paid:
+          type: number
+          format: double
+  responses:
+    Invoice:
+      description: "invoice"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: "#/components/schemas/Invoice"
+              errors:
+                default: null
+    ListInvoice:
+      description: "list invoice"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Invoice"
+              errors:
+                default: null
+    Page:
+      description: "page"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: "#/components/schemas/Page"
+              errors:
+                default: null
+    400:
+      description: "Invalid input, make sure all inputs are correct"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null
+              errors:
+                type: string
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    xenditToken:
+      type: apiKey
+      in: header
+      name: x-callback-token
+security:
+  - local: []
+  - authjwt: []
+  - xenditToken: []

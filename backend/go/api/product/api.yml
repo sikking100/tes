@@ -1,0 +1,1008 @@
+openapi: 3.0.3
+info:
+  title: Product Api
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:   
+  /product-pricelist/v1/:
+    get:
+      tags: ["pricelist"]
+      summary: "[all user]"
+      description: "find price list"
+      responses:
+        200:
+          $ref: '#/components/responses/ListPriceList'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  /product-pricelist/v1/{id}: 
+    get:
+      tags: ["pricelist"]
+      summary: "[all user]"
+      description: "find pricelist by id"
+      parameters: 
+      - $ref: '#/components/parameters/id' 
+      responses:
+        200:
+          $ref: '#/components/responses/PriceList'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags: ["pricelist"]
+      summary: "[system admin]"
+      description: "save pricelist by id"
+      parameters: 
+      - $ref: '#/components/parameters/id' 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SavePriceList'
+      responses:
+        200:
+          $ref: '#/components/responses/PriceList'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500' 
+    delete:
+      tags: ["pricelist"]    
+      summary: "[system admin]"
+      description: "delete pricelist by id"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/PriceList'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  /product-catalog/v1/:
+    get:
+      tags: ["catalog"]
+      summary: "[system admin,sales admin]"
+      description: "find catalog product"
+      parameters: 
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: query
+          in: query
+          required: false
+          description: "branchId,brandId,categoryId,team,salesId"
+          schema:
+            type: string
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string   
+      responses:
+        200:
+          $ref: '#/components/responses/PageProduct'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  /product-catalog/v1/{id}: 
+    get:
+      tags: ["catalog"]
+      summary: "[system admin, sales admin]"
+      description: "find catalog product by id"
+      parameters: 
+      - $ref: '#/components/parameters/id' 
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags: ["catalog"]
+      summary: "[system admin, sales admin]"
+      description: "save catalog product by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveCatalog'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500' 
+    delete:
+      tags: ["catalog"]    
+      summary: "[system admin]"
+      description: "delete catalog product by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  /product-catalog/v1/event/new-image: 
+    post:
+      tags: ["catalog"]
+      summary: "[event]"
+      description: update image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "bucket-name/product/{id}/thumbs/{file-name.ext}/{file-id}"
+                contentType:
+                  type: string
+                  example: "image/webp"
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                     type: string 
+                  errors:
+                    type: string
+                    nullable: true
+                    default: null    
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'
+  /product-branch/v1:
+    get:
+      tags: ["product in branch"]
+      summary: "[all user]"
+      description: "find product in branch"
+      parameters: 
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: query
+          in: query
+          required: true
+          description: "branchId,brandId,categoryId,team,salesId"
+          schema:
+            type: string    
+        - name: sort
+          in: query
+          required: false
+          description: "1.BY ORDER COUNT</br>2.BY DISCOUT"
+          schema:
+            type: integer
+        - name: search
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/PageProduct'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'   
+  /product-branch/v1/{id}/find-import-price:
+    get:
+      tags: ["product in branch"]
+      summary: "[system admin]"
+      description: "find product for import price by branch id"
+      parameters: 
+        - $ref: '#/components/parameters/id'  
+      responses:
+        200:
+          $ref: '#/components/responses/ListProduct'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+  /product-branch/v1/{id}/find-import-qty:
+    get:
+      tags: ["product in branch"]
+      summary: "[system admin,branch warehouse admin]"
+      description: "find product for import qty by branch id"
+      parameters: 
+        - $ref: '#/components/parameters/id'  
+      responses:
+        200:
+          $ref: '#/components/responses/ListProduct'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+  /product-branch/v1/{id}:
+    get:
+      tags: ["product in branch"]
+      summary: "[all user]"
+      description: "find product in branch by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags: ["product in branch"]    
+      summary: "[system admin]"
+      description: "save product in branch"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveProduct'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags: ["product in branch"]
+      summary: "[system admin]"
+      description: "add qty"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddQty'  
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+    patch:
+      tags: ["product in branch"]    
+      summary: "[branch warehouse admin]"
+      description: "transfer qty"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferQty'  
+      responses:
+        200:
+          $ref: '#/components/responses/HistoryQty'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'      
+    delete:
+      tags: ["product in branch"]
+      summary: "[branch warehouse admin,branch admin]"
+      description: "update visible product in branch"
+      parameters: 
+        - $ref: '#/components/parameters/id' 
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+  /product-history/v1:
+    get:
+      tags: ["history qty"]
+      summary: "[system admin, branch warehouse admin  ]"
+      description: "find history"
+      parameters: 
+        - name: num
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+        - name: limit
+          in: query
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+        - name: branchId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/PageHistoryQty'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+  /product-history/v1/{id}:
+    get:
+      tags: ["history qty"]
+      summary: "[system admin, branch warehouse admin]"
+      description: "find history by id"
+      parameters: 
+        - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/HistoryQty'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'        
+  /product-sales/v1:
+    get:
+      tags: ["sales product in branch"]
+      summary: "[branch sales admin, sales admin]"
+      description: "find sales that have products in branch"
+      parameters: 
+        - name: branchId
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/ListSalesProduct'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags: ["sales product in branch"]
+      summary: "[branch sales admin, sales admin]"
+      description: "update sales product"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveProductSales'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+       
+  schemas:
+    PriceList:
+      type: object
+      properties:
+        id:
+          type: string
+        name: 
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time      
+    SavePriceList:
+      type: object
+      properties:
+        name:
+          type: string
+    Category:
+      type: object
+      properties:
+        id: 
+          type: string
+        name: 
+          type: string
+        team:
+          type: integer
+          description: "1.FOOD</br>2.RETAIL"
+    Brand:
+      type: object
+      properties:
+        id: 
+          type: string
+        name: 
+          type: string
+        imageUrl:
+          type: string
+    Discount:
+      type: object
+      properties:
+        min: 
+          type: integer
+        max:
+          type: integer
+          nullable: true
+          default: null
+        discount:
+          type: number
+          format: double
+        startAt:
+          type: string
+          format: date-time
+        expiredAt:
+          type: string
+          format: date-time
+    Price:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        discount:
+          type: array
+          items:
+            $ref: '#/components/schemas/Discount'
+    Warehouse:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        qty:
+          type: integer
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        branchId:
+          type: string
+        productId:
+          type: string
+        salesId:
+          type: string
+        salesName:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        brand:
+          $ref: '#/components/schemas/Brand'
+        name: 
+          type: string
+        description: 
+          type: string
+        size: 
+          type: string
+        imageUrl: 
+          type: string
+        point:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          format: float
+        price:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+        warehouse:
+          type: array
+          items:
+            $ref: '#/components/schemas/Warehouse'
+        orderCount:
+          type: integer
+        isVisible:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PageProduct:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        query:
+          type: string
+        sort:
+          type: integer
+        search:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'      
+    SaveCatalog:
+      type: object
+      properties:
+        category:
+          $ref: '#/components/schemas/Category'
+        brand:
+          $ref: '#/components/schemas/Brand'
+        name: 
+          type: string
+        description: 
+          type: string
+        size: 
+          type: string
+        point:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          format: float
+    SaveProduct:
+      type: object
+      properties:
+        branchId:
+          type: string
+        productId:
+          type: string
+        salesId:
+          type: string
+        salesName:
+          type: string
+        category:
+          $ref: '#/components/schemas/Category'
+        brand:
+          $ref: '#/components/schemas/Brand'
+        name: 
+          type: string
+        description: 
+          type: string
+        size: 
+          type: string
+        imageUrl: 
+          type: string  
+        point:
+          type: number
+          minimum: 0.0
+          maximum: 1.0
+          format: float
+        price:
+          type: array
+          items:
+            $ref: '#/components/schemas/Price'
+    Creator:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        imageUrl:
+          type: string
+        roles:
+          type: integer
+    AddQty:
+      type: object
+      properties:
+        warehouseId:
+          type: string
+        warehouseName:
+          type: string
+        qty:
+          type: integer
+        creator:
+          $ref: '#/components/schemas/Creator'
+    TransferQty:
+      type: object
+      properties:
+        fromWarehouseId:
+          type: string
+        fromWarehouseName:
+          type: string
+        toWarehouseId:
+          type: string
+        toWarehouseName:
+          type: string
+        qty:
+          type: integer
+        creator:
+          $ref: '#/components/schemas/Creator'
+    HistoryQtyWarehouse:
+        type: object
+        nullable: true
+        properties:
+          id:
+            type: string
+          name:
+            type: string
+          lastQty:
+            type: integer
+          newQty:
+            type: integer
+    HistoryQty:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: integer
+          description: "1.ADD</br>2.TRANSFER"
+        branchId:
+          type: string
+        productId:
+          type: string
+          description: "same with id if product is global or branchId-productId for product branch"
+        category:
+          $ref: '#/components/schemas/Category'
+        brand:
+          $ref: '#/components/schemas/Brand'
+        name: 
+          type: string
+        description: 
+          type: string
+        size: 
+          type: string
+        imageUrl: 
+          type: string
+        warehouse:
+          type: array
+          description: "0.WAREHOUSE FROM(CAN NULL)</br>1.WAREHOUSE TO"
+          items:
+            $ref: '#/components/schemas/HistoryQtyWarehouse'
+        qty:
+          type: integer
+        creator:
+          $ref: '#/components/schemas/Creator'
+        createdAt:
+          type: string
+          format: date-time
+    PageHistoryQty:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        branchId:
+          type: string
+        warehouseId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/HistoryQty'
+    SalesProduct:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        totalProduct:
+          type: integer
+    SaveProductSales:
+      type: object
+      properties:
+        id:
+          type: string
+        branchId:
+          type: string
+        brandId:
+          type: string
+        categoryId:
+          type: string
+        team:
+          type: integer
+        salesId:
+          type: string
+        salesName:
+          type: string        
+            
+  responses:
+    ListSalesProduct:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 type: array
+                 items:
+                  $ref: '#/components/schemas/SalesProduct'
+              errors:
+                type: string
+                nullable: true
+                default: null
+    ListPriceList:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 type: array
+                 items:
+                  $ref: '#/components/schemas/PriceList'
+              errors:
+                type: string
+                nullable: true
+                default: null
+    PriceList:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/PriceList'
+              errors:
+                type: string
+                nullable: true
+                default: null            
+    Product:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/Product'
+              errors:
+                type: string
+                default: null
+    PageProduct:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                $ref: '#/components/schemas/PageProduct'
+              errors:
+                type: string
+                default: null
+    ListProduct:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+              errors:
+                type: string
+                default: null
+    HistoryQty:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/HistoryQty'
+              errors:
+                type: string
+                default: null
+    PageHistoryQty:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/PageHistoryQty'
+              errors:
+                type: string
+                default: null            
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    404:
+      description: "not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "not found"  
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: [] 

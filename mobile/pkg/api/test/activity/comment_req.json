@@ -1,0 +1,11 @@
+{
+    "activityId": "string",
+    "createdBy": {
+        "id": "string",
+        "name": "string",
+        "roles": "string",
+        "imageUrl": "string",
+        "description": "string"
+    },
+    "comment": "string"
+}

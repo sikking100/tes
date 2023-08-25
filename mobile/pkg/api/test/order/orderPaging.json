@@ -1,0 +1,191 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "back": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "query": "string",
+            "type": 0
+        },
+        "next": {
+            "pageNumber": 0,
+            "pageLimit": 0,
+            "query": "string",
+            "type": 0
+        },
+        "items": [
+            {
+                "id": "string",
+                "invoiceStatus": 0,
+                "deliveryStatus": 0,
+                "categoryPrice": {
+                    "id": "string",
+                    "name": "string",
+                    "regionId": "string",
+                    "regionName": "string",
+                    "branchId": "string",
+                    "branchName": "string",
+                    "team": 1
+                },
+                "createdBy": {
+                    "id": "string",
+                    "name": "string",
+                    "phone": "string",
+                    "email": "string",
+                    "imageUrl": "string",
+                    "salesFood": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    },
+                    "salesRetail": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    }
+                },
+                "customer": {
+                    "id": "string",
+                    "name": "string",
+                    "phone": "string",
+                    "email": "string",
+                    "imageUrl": "string",
+                    "salesFood": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    },
+                    "salesRetail": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    }
+                },
+                "business": {
+                    "id": "string",
+                    "name": "string",
+                    "phone": "string",
+                    "email": "string",
+                    "imageUrl": "string",
+                    "salesFood": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    },
+                    "salesRetail": {
+                        "id": "string",
+                        "name": "string",
+                        "phone": "string",
+                        "email": "string",
+                        "imageUrl": "string"
+                    }
+                },
+                "product": [
+                    {
+                        "id": "string",
+                        "categoryId": "string",
+                        "categoryName": "string",
+                        "brandId": "string",
+                        "brandName": "string",
+                        "name": "string",
+                        "description": "string",
+                        "size": "string",
+                        "imageUrl": "string",
+                        "point": 0.0,
+                        "price": 0,
+                        "discount": 0,
+                        "additionalDisocunt": 0,
+                        "qtyPurchase": 0,
+                        "qtyRecive": 0
+                    }
+                ],
+                "invoice": [
+                    {
+                        "id": "string",
+                        "amount": 0,
+                        "paymentChannel": "string",
+                        "paymentMethod": "string",
+                        "paymentDestination": "string",
+                        "message": "string",
+                        "status": 0,
+                        "paidAt": "2022-12-28T14:32:08.633Z",
+                        "expiredAt": "2022-12-28T14:32:08.633Z"
+                    }
+                ],
+                "invoiceExpiredAt": "2022-12-28T14:32:08.633Z",
+                "deliveryPrice": 0,
+                "deliver": [
+                    {
+                        "id": "string",
+                        "note": "string",
+                        "courier": {
+                            "id": "string",
+                            "name": "string",
+                            "phone": "string",
+                            "imageUrl": "string",
+                            "url": "string",
+                            "type": 0
+                        },
+                        "deliveryQty": [
+                            {
+                                "warehouseId": "string",
+                                "warehousePicName": "string",
+                                "warehouseAddress": {
+                                    "name": "string",
+                                    "lngLat": "string"
+                                },
+                                "warehousePhone": "string",
+                                "productId": "string",
+                                "productQtyDeliver": 0,
+                                "productQtyBroken": 0
+                            }
+                        ],
+                        "status": 0,
+                        "price": 0,
+                        "deliverAt": "2022-12-28T14:32:08.633Z"
+                    }
+                ],
+                "deliverAt": "2022-12-28T14:32:08.633Z",
+                "deliveryAddress": {
+                    "name": "string",
+                    "lngLat": "string"
+                },
+                "price": 0,
+                "paid": 0,
+                "paymentMethod": 0,
+                "approval": {
+                    "isAdditionalDiscount": true,
+                    "isOverLimit": true,
+                    "isOverDue": true,
+                    "user": [
+                        {
+                            "id": "string",
+                            "name": "string",
+                            "phone": "string",
+                            "email": "string",
+                            "imageUrl": "string",
+                            "roles": 0,
+                            "status": 0,
+                            "note": "string",
+                            "updatedAt": "2022-12-28T14:32:08.633Z"
+                        }
+                    ]
+                },
+                "status": 0,
+                "createdAt": "2022-12-28T14:32:08.633Z",
+                "updatedAt": "2022-12-28T14:32:08.633Z"
+            }
+        ]
+    }
+}

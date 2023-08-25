@@ -1,0 +1,29 @@
+{
+    "id": "string",
+    "courier": {
+        "id": "string",
+        "name": "string",
+        "phone": "string",
+        "imageUrl": "string",
+        "url": "string",
+        "type": 0
+    },
+    "deliveryQty": [
+        {
+            "warehouseId": "string",
+            "warehousePicName": "string",
+            "warehouseAddress": {
+                "name": "string",
+                "lngLat": "string"
+            },
+            "warehousePhone": "string",
+            "productId": "string",
+            "productQtyDeliver": 0,
+            "productQtyBroken": 0
+        }
+    ],
+    "status": 0,
+    "price": 0,
+    "note": "string",
+    "deliverAt": "2022-12-28T14:32:08.633Z"
+}

@@ -1,0 +1,172 @@
+openapi: 3.0.3
+info:
+  title: Auth Api
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: production
+    url: https://apigateway-service-l2bago5gdq-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:   
+  /user-auth/v1:
+    post:
+      tags: ["auth"]
+      summary: "[no auth]"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                app: 
+                  type: integer
+                  description: "1.CUSTOMER</br>2.SYSTEM ADMIN</br>3.FINANCE ADMIN</br>4.SALES ADMIN</br>5.BRANCH ADMIN</br>6.WAREHOUSE ADMIN</br>7.LEADER</br>8.SALES</br>9.COURIER"  
+                fcmToken:
+                  type: string
+                phone:
+                  type: string
+        
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: string
+                  errors:
+                    type: string
+                    nullable: true
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        404:
+          $ref: '#/components/responses/404'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags: ["auth"]
+      summary: "[no auth]"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id: 
+                  type: string 
+                otp:
+                  type: string
+        
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    type: string
+                  errors:
+                    type: string
+                    nullable: true
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        406:
+          $ref: '#/components/responses/406'  
+        500:
+          $ref: '#/components/responses/500'      
+components:
+  responses:
+    400:
+      description: "Invalid input"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null  
+              errors:
+                type: string
+                default: "Invalid input"
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+                default: "unauthorized"  
+    404:
+      description: "account not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "account not found"
+    406:
+      description: "invalid otp"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+                default: "invalid otp"            
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+                default: "the system is busy, please try again later"
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

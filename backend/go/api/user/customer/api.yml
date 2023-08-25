@@ -1,0 +1,937 @@
+openapi: 3.0.3
+info:
+  title: Customer Api
+  version: 1.0.0
+servers:
+  - description: develop
+    url: https://apigateway-service-ckndvuglva-et.a.run.app
+  - description: local
+    url: http://localhost:8080
+paths:
+  /user-customer/v1:
+    get:
+      tags: ["customer"]
+      summary: "[employee]"
+      description: "find customer"
+      parameters: 
+      - name: num
+        in: query
+        required: true
+        schema:
+          type: integer 
+          minimum: 1
+      - name: limit
+        in: query
+        required: true
+        schema:
+          type: integer 
+          minimum: 1
+          maximum: 100
+      - name: query
+        in: query
+        required: false
+        description: "viewer,regionId,branchId"
+        schema:
+          type: string
+      - name: search
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/PageCustomer'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags: ["customer"]
+      summary: "[no auth]"
+      description: "create customer"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAccount'
+      responses:
+        200:
+          $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        409:
+          $ref: '#/components/responses/409'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags: ["customer"]
+      summary: "[employee]"
+      description: "find customer by phone and create if not exists"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAccount'
+      responses:
+        200:
+          $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'      
+  
+  /user-customer/v1/{id}:
+    get:
+      tags: ["customer"]
+      summary: "[all user]"
+      description: "find customer by id"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        500:
+          $ref: '#/components/responses/500'
+    put:
+      tags: ["customer"]
+      summary: "[customer]"
+      description: "update account customer"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SaveAccount'
+      responses:
+        200:
+          $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        409:
+          $ref: '#/components/responses/409'  
+        500:
+          $ref: '#/components/responses/500'      
+    patch:
+      tags: ["customer"]
+      summary: "[customer, sales admin]"
+      description: "update business"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateBusiness'
+      responses:
+        200:
+          $ref: '#/components/responses/Customer'
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+        500:
+          $ref: '#/components/responses/500'       
+  /user-customer/v1/event/new-image:
+    post:
+      tags: ["customer"]
+      summary: "[event]"
+      description: update image
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "bucket-name/customer/{id}/thumbs/{file-name.ext}/{file-id}"
+                contentType:
+                  type: string
+                  example: "image/webp"
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                     type: string 
+                  errors:
+                    type: string
+                    nullable: true
+                    default: null    
+        400:
+          $ref: '#/components/responses/400'
+        500:
+          $ref: '#/components/responses/500'              
+  /user-customer-apply/v1:
+    get:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "find apply business"
+      parameters: 
+      - name: num
+        in: query
+        required: true
+        schema:
+          type: integer 
+          minimum: 1
+      - name: limit
+        in: query
+        required: true
+        schema:
+          type: integer 
+          minimum: 1
+          maximum: 100
+      - name: userId
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        description: "0.ALL</br>1.WAITING LIMIT</br>2.WAITING APPROVE</br>3.WAITING CREATE"
+        schema:
+          type: integer
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/PageApply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        500:
+          $ref: '#/components/responses/500'
+    post:
+      tags: ["apply"]
+      summary: "[branch admin]"
+      description: "create business"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateBusiness'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'       
+  /user-customer-apply/v1/{id}:
+    get:
+      tags: ["apply"]
+      summary: "[all user]"
+      description: "find apply customer by id"
+      parameters: 
+      - $ref: '#/components/parameters/id'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'
+  /user-customer-apply/v1/new-business:
+    post:
+      tags: ["apply"]
+      summary: "[all user]"
+      description: "apply new business"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyNewBusiness'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'        
+  /user-customer-apply/v1/new-limit:
+    post:
+      tags: ["apply"]
+      summary: "[sales admin]"
+      description: "apply new limit"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApplyNewLimit'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'                
+  /user-customer-apply/v1/approve:
+    post:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "approve"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Approve'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'                        
+  /user-customer-apply/v1/reject:
+    post:
+      tags: ["apply"]
+      summary: "[employee]"
+      description: "approve"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reject'
+      responses:
+        200:
+          description: "ok"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    default: 200
+                  data:
+                    $ref: '#/components/schemas/Apply'
+                  errors:
+                    type: string
+                    default: null
+        400:
+          $ref: '#/components/responses/400'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'  
+        500:
+          $ref: '#/components/responses/500'        
+components:
+  parameters:
+    id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    BusinessAddress:
+      type: object
+      properties:
+        name:
+          type: string
+        lngLat:
+          type: array
+          items:
+            type: number
+            format: double
+    BusinessLocation:
+      type: object
+      properties:
+        regionId:
+          type: string
+        regionName:
+          type: string
+        branchId:
+          type: string
+        branchName:
+          type: string
+    BusinessPriceList:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string     
+    BusinessCredit: 
+      type: object
+      properties:
+        term:
+          type: integer
+        termInvoice:
+          type: integer
+        limit:
+          type: number
+          format: double
+        used:
+          type: number
+          format: double
+    BusinessTax:
+      type: object
+      nullable: true
+      properties:
+        exchangeDay:
+          type: integer
+          description: "0.SUNDAY - 6.SATURDAY"
+        legalityPath:
+          type: string
+        type:
+          type: integer
+          description: "0.NON PKP</br>1.PKP"      
+    BusinessCustomer:
+      type: object
+      properties:
+        id:
+          type: string
+        idCardPath:
+          type: string
+        idCardNumber:
+          type: string
+        address:
+          type: string
+    BusinessPic:
+      type: object
+      properties:
+        idCardPath:
+          type: string
+        idCardNumber:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+      
+    Business:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/BusinessLocation'
+        priceList:
+          $ref: '#/components/schemas/BusinessPriceList'
+        customer:
+          $ref: '#/components/schemas/BusinessCustomer'
+        pic:
+          $ref: '#/components/schemas/BusinessPic'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessAddress'
+        viewer:
+          type: integer    
+        credit:
+          $ref: '#/components/schemas/BusinessCredit'
+        tax:
+          $ref: '#/components/schemas/BusinessTax'
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        name:  
+          type: string
+        imageUrl:
+          type: string
+        business:
+          $ref: '#/components/schemas/Business'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    PageCustomer:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null 
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        query:
+          type: string
+        search:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer' 
+    SaveAccount:
+      type: object
+      properties:
+        phone:
+          type: string
+        email:
+          type: string
+        name:  
+          type: string
+    UpdateBusiness:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/BusinessLocation'
+        pic:
+          $ref: '#/components/schemas/BusinessPic'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessAddress'
+        viewer:
+          type: integer    
+        tax:
+          $ref: '#/components/schemas/BusinessTax'      
+    
+    ApplyNewBusiness:
+      type: object
+      properties:
+        location:
+          $ref: '#/components/schemas/BusinessLocation'
+        priceList:
+          $ref: '#/components/schemas/BusinessPriceList'
+        customer:
+          $ref: '#/components/schemas/BusinessCustomer'
+        pic:
+          $ref: '#/components/schemas/BusinessPic'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessAddress'
+        viewer:
+          type: integer    
+        creditProposal:
+          $ref: '#/components/schemas/BusinessCredit'
+        tax:
+          $ref: '#/components/schemas/BusinessTax'
+        transactionLastMonth:
+          type: integer
+        transactionPerMonth:
+          type: integer
+     
+    ApplyUserApprover:
+      type: object
+      properties:
+        id:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        name:  
+          type: string
+        imageUrl:
+          type: string
+        roles:
+          type: integer
+        fcmToken:
+          type: string
+        note:
+          type: string
+        status:
+          type: integer
+          description: "0.PENDING</br>1.WAITING APPROVE</br>2.APPROVE</br>3.REJECT"
+        updatedAt:
+          type: string
+          format: date-time      
+    ApplyCustomer:
+      type: object
+      properties:
+        idCardPath:
+          type: string
+        idCardNumber:
+          type: string
+        name:
+          type: string
+        phone:
+          type: string
+        email:
+          type: string
+        address:
+          type: string
+        imageUrl:
+          type: string
+    Apply:
+      type: object
+      properties:
+        id:
+          type: string
+        location:
+          $ref: '#/components/schemas/BusinessLocation'
+        priceList:
+          $ref: '#/components/schemas/BusinessPriceList'
+        customer:
+          $ref: '#/components/schemas/ApplyCustomer'
+        pic:
+          $ref: '#/components/schemas/BusinessPic'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessAddress'
+        viewer:
+          type: integer    
+        creditProposal:
+          $ref: '#/components/schemas/BusinessCredit'
+        creditActual:
+          $ref: '#/components/schemas/BusinessCredit'  
+        tax:
+          $ref: '#/components/schemas/BusinessTax'
+        transactionLastMonth:
+          type: integer
+        transactionPerMonth:
+          type: integer  
+        userApprover:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplyUserApprover'
+        type:
+          type: integer
+          description: "1.NEW BUSINESS</br>2.NEW LIMIT"
+        team:
+          type: integer
+        status:
+          type: integer
+          description: "0.PENDING</br>1.WAITING APPROVE</br>2.APPROVE</br>3.REJECT"  
+        expiredAt:
+          type: string
+          format: date-time
+    PageApply:
+      type: object
+      properties:
+        back:
+          type: integer
+          nullable: true
+          default: null
+        next:
+          type: integer
+          nullable: true
+          default: null
+        limit:
+          type: integer
+          default: 20
+        userId:
+          type: string
+        type:
+          type: integer
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Apply' 
+    ApplyNewLimit:
+      type: object
+      properties:
+        id:
+          type: string
+        location:
+          $ref: '#/components/schemas/BusinessLocation'
+        priceList:
+          $ref: '#/components/schemas/BusinessPriceList'
+        customer:
+          $ref: '#/components/schemas/ApplyCustomer'
+        pic:
+          $ref: '#/components/schemas/BusinessPic'
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/BusinessAddress'
+        viewer:
+          type: integer    
+        creditProposal:
+          $ref: '#/components/schemas/BusinessCredit'
+        creditActual:
+          $ref: '#/components/schemas/BusinessCredit'  
+        tax:
+          $ref: '#/components/schemas/BusinessTax'
+        transactionLastMonth:
+          type: integer
+        transactionPerMonth:
+          type: integer  
+        userApprover:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplyUserApprover'
+        note:
+          type: string
+        team:
+          type: integer
+    CreateBusiness:
+      type: object
+      properties:
+        applyId:
+          type: string
+        newId:
+          type: string
+    Approve:
+      type: object
+      properties:
+        id:
+          type: string
+        note:
+          type: string
+        team:
+          type: integer
+        priceList:
+          $ref: '#/components/schemas/BusinessPriceList'
+        creditProposal:
+          $ref: '#/components/schemas/BusinessCredit'
+        userApprover:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplyUserApprover'
+            
+    Reject:
+      type: object
+      properties:
+        id:
+          type: string
+        note:
+          type: string 
+        userApprover:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApplyUserApprover'  
+  responses:
+    Customer:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/Customer'
+              errors:
+                type: string
+                default: null
+    Apply:
+      description: "ok"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 200
+              data:
+                 $ref: '#/components/schemas/Apply'
+              errors:
+                type: string
+                default: null            
+    400:
+      description: "invalid input, make sure all inputs are correct"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 400
+              data:
+                default: null
+              errors:
+                type: string
+    401:
+      description: "unauthorized"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 401
+              data:
+                default: null
+              errors:
+                type: string
+    404:
+      description: "user not found"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 404
+              data:
+                default: null
+              errors:
+                type: string
+    409:
+      description: "user already exists"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 409
+              data:
+                default: null
+              errors:
+                type: string            
+    500:
+      description: "the system is busy, please try again later"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              code:
+                default: 500
+              data:
+                default: null
+              errors:
+                type: string
+  securitySchemes:
+    local:
+      type: apiKey
+      in: header
+      name: Auth-User
+    authjwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+security:
+  - local: []
+  - authjwt: []

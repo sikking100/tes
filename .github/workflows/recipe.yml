@@ -1,0 +1,77 @@
+name: Recipe Service
+on:
+  push:
+    paths: ['backend/go/api/recipe/**', '.github/workflows/recipe.yml','backend/go/pkg/**']
+jobs:
+   build-and-deploy:
+    if: ${{ (github.ref == 'refs/heads/develop') }}
+    runs-on: ubuntu-latest  
+    environment: develop
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: auth
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.8.1'
+        with:
+          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+          token_format: access_token
+
+      - name: Build service
+        run: |
+            (cd ./backend/go/api/recipe && make build)
+            gcloud auth configure-docker asia-southeast2-docker.pkg.dev --quiet
+            docker tag recipe-service:latest asia-southeast2-docker.pkg.dev/dairy-food-development/images/backend/go/api/recipe-service:v1.0.0
+            docker push asia-southeast2-docker.pkg.dev/dairy-food-development/images/backend/go/api/recipe-service:v1.0.0
+
+      - name: Deploy Service
+        uses: 'google-github-actions/deploy-cloudrun@v1'
+        with:
+          service: 'recipe-service'
+          region: 'asia-southeast2'
+          image: 'asia-southeast2-docker.pkg.dev/dairy-food-development/images/backend/go/api/recipe-service:v1.0.0' 
+          project_id: 'dairy-food-development'  
+          env_vars: |
+            IMAGE_URL=https://storage.googleapis.com/dairy-food-development.appspot.com/default/product.png
+          secrets:  |
+            DB_URI=recipe-service:latest
+   build-and-deploy-production:
+    if: ${{ (github.ref == 'refs/heads/production') }} 
+    runs-on: ubuntu-latest  
+    environment: production
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v3
+
+      - id: auth
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.8.1'
+        with:
+          workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
+          service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+          token_format: access_token
+
+      - name: Build service
+        run: |
+            (cd ./backend/go/api/recipe && make build)
+            gcloud auth configure-docker asia-southeast2-docker.pkg.dev --quiet
+            docker tag recipe-service:latest asia-southeast2-docker.pkg.dev/dairy-food-production/backend/go/api/recipe-service:v1.0.0
+            docker push asia-southeast2-docker.pkg.dev/dairy-food-production/backend/go/api/recipe-service:v1.0.0
+
+      - name: Deploy Service
+        uses: 'google-github-actions/deploy-cloudrun@v1'
+        with:
+          service: 'recipe-service'
+          region: 'asia-southeast2'
+          image: 'asia-southeast2-docker.pkg.dev/dairy-food-production/backend/go/api/recipe-service:v1.0.0' 
+          project_id: 'dairy-food-production'
+          env_vars: |
+            IMAGE_URL=https://storage.googleapis.com/dairy-food-production.appspot.com/default/product.png
+          secrets:  |
+            DB_URI=recipe-service:latest

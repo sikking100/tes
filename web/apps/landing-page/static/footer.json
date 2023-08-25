@@ -1,0 +1,79 @@
+{
+  "dairyFoodText": {
+    "img": "/assets/logo dairyfood putih.webp",
+    "title": ""
+  },
+  "iconSosmed": [
+    {
+      "link": "https://www.facebook.com/PT-Dairyfood-Internusa-103529115267492",
+      "img": "/icons/fb-icon.svg"
+    },
+    {
+      "link": "https://www.instagram.com/dairyfood.id",
+      "img": "/icons/ig-icon.svg"
+    }
+  ],
+  "items": [
+    {
+      "title": "Perusahaan",
+      "text_link": [
+        {
+          "text": ["Tentang Kami"],
+          "link": "/about"
+        },
+        {
+          "text": ["Layanan"],
+          "link": "/services"
+        }
+      ]
+    },
+    {
+      "title": "Join",
+      "text_link": [
+        {
+          "text": ["Distributor"],
+          "link": "/distributor"
+        },
+        {
+          "text": ["Pelanggan Reguler"],
+          "link": "/regular-customer"
+        }
+      ]
+    },
+    {
+      "title": "Bantuan",
+      "text_link": [
+        {
+          "text": ["Pusat Bantuan"],
+          "link": "/help"
+        }
+      ]
+    },
+    {
+      "title": "Kontak",
+      "text_link": [
+        {
+          "text": ["info@dairyfood.app"],
+          "link": "#"
+        },
+        {
+          "text": ["(021) 6631526"],
+          "link": "#"
+        },
+        {
+          "text": [
+            "JL. Jembatan Dua Raya No 11 J, Kel. Pejagalan,",
+            "Kec. Penjaringan, Kota Adm. Jakarta Utara, ",
+            "Prop. DKI Jakarta 14450"
+          ],
+          "link": "#"
+        }
+      ]
+    }
+  ],
+  "terms": ["PT. Dairyfood Internusa. ", "All rights Reserved."],
+  "terms_": {
+    "text_": "Ketentuan Layanan",
+    "text__": "Kebijakan Privasi"
+  }
+}

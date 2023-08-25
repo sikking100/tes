@@ -1,0 +1,308 @@
+- name: "activity"
+  local: "http://activity-service:8080"
+  develop: "https://activity-service-ckndvuglva-et.a.run.app"
+  production: "https://activity-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/activity/v1"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/activity/v1/:id"
+      method: ["GET","PUT","DELETE"]
+      isAuth: true
+    - path: "/comment/v1"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/comment/v1/:id"
+      method: ["GET","PUT","DELETE"]
+      isAuth: true
+- name: "banner"
+  local: "http://banner-service:8080"
+  develop: "https://banner-service-ckndvuglva-et.a.run.app"
+  production: "https://banner-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/banner/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/banner/v1/:id"
+      method: ["DELETE"]
+      isAuth: true   
+- name: "brand"
+  local: "http://brand-service:8080"
+  develop: "https://brand-service-ckndvuglva-et.a.run.app"
+  production: "https://brand-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/brand/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/brand/v1/:id"
+      method: ["GET","POST","DELETE"]
+      isAuth: true   
+- name: "category"
+  local: "http://category-service:8080"
+  develop: "https://category-service-ckndvuglva-et.a.run.app"
+  production: "https://category-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/category/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/category/v1/:id"
+      method: ["GET","POST","DELETE"]
+      isAuth: true   
+- name: "code"
+  local: "http://code-service:8080"
+  develop: "https://code-service-ckndvuglva-et.a.run.app"
+  production: "https://code-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/code/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/code/v1/:id"
+      method: ["GET","POST","DELETE"]
+      isAuth: true   
+- name: "help"
+  local: "http://help-service:8080"  
+  develop: "https://help-service-ckndvuglva-et.a.run.app"
+  production: "https://help-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/help/v1/help"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/help/v1/help/:id"
+      method: ["GET","PUT","DELETE"]
+      isAuth: true   
+    - path: "/help/v1/question"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/help/v1/question/:id"
+      method: ["PUT"]
+      isAuth: true
+- name: "location"
+  local: "http://location-service:8080"
+  develop: "https://location-service-ckndvuglva-et.a.run.app"
+  production: "https://location-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/location-branch/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/location-branch/v1/find/near"
+      method: ["GET"]
+      isAuth: true
+    - path: "/location-branch/v1/:id"
+      method: ["GET","POST","PUT","DELETE"]
+      isAuth: true       
+    - path: "/location-region/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/location-region/v1/:id"
+      method: ["GET","POST", "DELETE"]
+      isAuth: true    
+- name: "order"
+  local: "http://order-service:8080"
+  develop: "https://order-service-ckndvuglva-et.a.run.app"
+  production: "https://order-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/delivery/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/:id"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/:id/by-order"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/:id/packing-list"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/courier-internal"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/courier-external"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/update-qty"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/deliver"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/restock"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/:id/complete"
+      method: ["PUT"]
+      isAuth: true
+    - path: "/delivery/v1/paking-list/warehouse"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/paking-list/courier"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/paking-list/destination"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/paking-list/loaded"
+      method: ["PUT"]
+      isAuth: true  
+    - path: "/delivery/v1/product/find"
+      method: ["GET"]
+      isAuth: true
+    - path: "/delivery/v1/gosend/price"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/delivery/v1/gosend-callback"
+      method: ["POST"]
+      isAuth: false
+
+    - path: "/invoice/v1"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/invoice/v1/:id"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/invoice/v1/:id/make-payment"
+      method: ["POST"]
+      isAuth: true  
+    - path: "/invoice/v1/:id/complete-payment"
+      method: ["POST"]
+      isAuth: true  
+    - path: "/invoice/v1/:id/by-order"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/invoice/v1/find/report"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/invoice/v1/callback"
+      method: ["POST"]
+      isAuth: false 
+
+    - path: "/order/v1"
+      method: ["GET","POST"]
+      isAuth: true  
+    - path: "/order/v1/:id"
+      method: ["GET","PUT"]
+      isAuth: true  
+    - path: "/order/v1/find/report"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/order/v1/find/performance"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/order/v1/transaction/last-month"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/order/v1/transaction/per-month"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/order-apply/v1"
+      method: ["GET"]
+      isAuth: true  
+    - path: "/order-apply/v1/:id"
+      method: ["GET","PUT","PATCH"]
+      isAuth: true 
+- name: "product"
+  local: "http://product-service:8080"
+  develop: "https://product-service-ckndvuglva-et.a.run.app"
+  production: "https://product-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/product-pricelist/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-pricelist/v1/:id"
+      method: ["GET","POST","DELETE"]
+      isAuth: true       
+    - path: "/product-catalog/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-catalog/v1/:id"
+      method: ["GET","POST","DELETE"]
+      isAuth: true       
+    - path: "/product-branch/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-branch/v1/:id/find-import-price"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-branch/v1/:id/find-import-qty"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-branch/v1/:id"
+      method: ["GET","POST","PUT","PATCH","DELETE"]
+      isAuth: true             
+    - path: "/product-history/v1"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-history/v1/:id"
+      method: ["GET"]
+      isAuth: true
+    - path: "/product-sales/v1"
+      method: ["GET","PUT"]
+      isAuth: true               
+- name: "recipe"
+  local: "http://recipe-service:8080"
+  develop: "https://recipe-service-ckndvuglva-et.a.run.app"
+  production: "https://recipe-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/recipe/v1/recipe"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/recipe/v1/recipe/:id"
+      method: ["GET","PUT","DELETE"]
+      isAuth: true
+- name: "report"
+  local: "http://report-service:8080"
+  develop: "https://report-service-ckndvuglva-et.a.run.app"
+  production: "https://report-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/report/v1"
+      method: ["GET","POST"]
+      isAuth: true
+    - path: "/report/v1/:id"
+      method: ["GET","DELETE"]
+      isAuth: true
+- name: "user"
+  local: "http://user-service:8080"
+  develop: "https://user-service-ckndvuglva-et.a.run.app"
+  production: "https://user-service-l2bago5gdq-et.a.run.app"
+  endpoint:
+    - path: "/user-auth/v1"
+      method: ["POST","PUT"]
+      isAuth: false
+    - path: "/user-employee/v1"
+      method: ["GET"]
+      isAuth: true       
+    - path: "/user-employee/v1/approver/credit"
+      method: ["GET"]
+      isAuth: true       
+    - path: "/user-employee/v1/approver/top"
+      method: ["GET"]
+      isAuth: true       
+    - path: "/user-employee/v1/:id"
+      method: ["GET", "POST","PUT","DELETE"]
+      isAuth: true
+    - path: "/user-customer/v1"
+      method: ["POST"]
+      isAuth: false 
+    - path: "/user-customer/v1"
+      method: ["GET", "PUT"]
+      isAuth: true 
+    - path: "/user-customer/v1/:id"
+      method: ["GET", "PUT", "PATCH"]
+      isAuth: true 
+    - path: "/user-customer-apply/v1"
+      method: ["GET","POST"]
+      isAuth: true   
+    - path: "/user-customer-apply/v1/:id"
+      method: ["GET"]
+      isAuth: true   
+    - path: "/user-customer-apply/v1/new-business"
+      method: ["POST"]
+      isAuth: true   
+    - path: "/user-customer-apply/v1/new-limit"
+      method: ["POST"]
+      isAuth: true   
+    - path: "/user-customer-apply/v1/approve"
+      method: ["POST"]
+      isAuth: true   
+    - path: "/user-customer-apply/v1/reject"
+      method: ["POST"]
+      isAuth: true

@@ -1,0 +1,12 @@
+{
+    "createdBy": {
+        "id": "string",
+        "name": "string",
+        "roles": "string",
+        "imageUrl": "string",
+        "description": "string"
+    },
+    "description": "string",
+    "title": "string",
+    "videoUrl": "string"
+}

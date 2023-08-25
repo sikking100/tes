@@ -1,0 +1,20 @@
+{
+    "name": "apis",
+    "version": "1.0.0",
+    "license": "MIT",
+    "main": "./index.ts",
+    "types": "./index.ts",
+    "scripts": {
+        "test": "vitest run",
+        "test:watch": "vitest"
+    },
+    "devDependencies": {
+        "@types/node": "^20.4.2",
+        "eslint": "^7.32.0",
+        "eslint-config-custom": "*",
+        "firebase": "^9.14.0"
+    },
+    "dependencies": {
+        "query-string": "^8.1.0"
+    }
+}

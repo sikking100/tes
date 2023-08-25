@@ -1,0 +1,174 @@
+{
+  "project_info": {
+    "project_number": "729132625350",
+    "project_id": "dairy-food-development",
+    "storage_bucket": "dairy-food-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729132625350:android:04a4cc29aa6baf471096c7",
+        "android_client_info": {
+          "package_name": "app.dairyfood.courier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZEqFiqjXOwSW9CcHo4t_lmVs5nze22zU"
+        },
+        {
+          "current_key": "AIzaSyDffdogcsYeYaiOBZGPYTfm9cyIXx3nvWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729132625350-gda3f8m70u94eh0vjm73dd6c5m7q32qq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.dairyfood.courier"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729132625350:android:2691a6e36e1e1f631096c7",
+        "android_client_info": {
+          "package_name": "app.dairyfood.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZEqFiqjXOwSW9CcHo4t_lmVs5nze22zU"
+        },
+        {
+          "current_key": "AIzaSyDffdogcsYeYaiOBZGPYTfm9cyIXx3nvWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729132625350-gda3f8m70u94eh0vjm73dd6c5m7q32qq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.dairyfood.courier"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729132625350:android:328cc517e0b43a881096c7",
+        "android_client_info": {
+          "package_name": "app.dairyfood.leader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZEqFiqjXOwSW9CcHo4t_lmVs5nze22zU"
+        },
+        {
+          "current_key": "AIzaSyDffdogcsYeYaiOBZGPYTfm9cyIXx3nvWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729132625350-gda3f8m70u94eh0vjm73dd6c5m7q32qq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.dairyfood.courier"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:729132625350:android:64a9b9c0dd8e6d251096c7",
+        "android_client_info": {
+          "package_name": "app.dairyfood.sales"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "729132625350-t3vae3nc90gqdmrss2m70sb2k9d3sa9u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "app.dairyfood.sales",
+            "certificate_hash": "8c10ad97bb5467a895f0c2530fc16ccec84f1425"
+          }
+        },
+        {
+          "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZEqFiqjXOwSW9CcHo4t_lmVs5nze22zU"
+        },
+        {
+          "current_key": "AIzaSyDffdogcsYeYaiOBZGPYTfm9cyIXx3nvWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "729132625350-s3v378aneab1m32ri6ol5k08qonovu1s.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "729132625350-gda3f8m70u94eh0vjm73dd6c5m7q32qq.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.dairyfood.courier"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

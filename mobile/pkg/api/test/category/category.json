@@ -1,0 +1,12 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "name": "string",
+        "food": 0,
+        "retail": 0,
+        "createdAt": "2022-11-28T09:09:13.851Z",
+        "updatedAt": "2022-11-28T09:09:13.851Z"
+    }
+}

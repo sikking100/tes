@@ -1,0 +1,32 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "back": {
+            "pageNumber": 0,
+            "pageLimit": 0
+        },
+        "next": {
+            "pageNumber": 0,
+            "pageLimit": 0
+        },
+        "items": [
+            {
+                "id": "string",
+                "title": "string",
+                "description": "string",
+                "imageUrl": "string",
+                "videoUrl": "string",
+                "createdBy": {
+                    "id": "string",
+                    "name": "string",
+                    "roles": "string",
+                    "imageUrl": "string",
+                    "description": "string"
+                },
+                "createdAt": "2022-11-27T01:43:19.030Z",
+                "updatedAt": "2022-11-27T01:43:19.030Z"
+            }
+        ]
+    }
+}

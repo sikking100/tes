@@ -1,0 +1,70 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": {
+        "id": "string",
+        "product": {
+            "id": "string",
+            "category": {
+                "id": "string",
+                "name": "string",
+                "food": 0,
+                "retail": 0,
+                "createdAt": "2022-12-19T15:23:33.962Z",
+                "updatedAt": "2022-12-19T15:23:33.962Z"
+            },
+            "brand": {
+                "id": "string",
+                "name": "string",
+                "imageUrl": "string",
+                "createdAt": "2022-12-19T15:23:33.962Z",
+                "updatedAt": "2022-12-19T15:23:33.962Z"
+            },
+            "name": "string",
+            "description": "string",
+            "size": "string",
+            "team": 0,
+            "imageUrl": "string",
+            "point": 0.0,
+            "createdAt": "2022-12-19T15:23:33.962Z",
+            "updatedAt": "2022-12-19T15:23:33.962Z"
+        },
+        "categoryPrice": {
+            "id": "string",
+            "branch": {
+                "id": "string",
+                "region": {
+                    "id": "string",
+                    "name": "string",
+                    "createdAt": "2022-12-19T15:23:33.962Z",
+                    "updatedAt": "2022-12-19T15:23:33.962Z"
+                },
+                "name": "string",
+                "address": {
+                    "name": "string",
+                    "lngLat": "string"
+                },
+                "createdAt": "2022-12-19T15:23:33.962Z",
+                "updatedAt": "2022-12-19T15:23:33.962Z"
+            },
+            "name": "string",
+            "team": 0,
+            "createdAt": "2022-12-19T15:23:33.962Z",
+            "updatedAt": "2022-12-19T15:23:33.962Z"
+        },
+        "price": 0,
+        "discount": {
+            "expiredAt": "2022-12-19T15:23:33.962Z",
+            "items": [
+                {
+                    "discount": 0,
+                    "min": 0,
+                    "max": 0
+                }
+            ]
+        },
+        "orderCount": 0,
+        "createdAt": "2022-12-19T15:23:33.962Z",
+        "updatedAt": "2022-12-19T15:23:33.962Z"
+    }
+}

@@ -1,0 +1,26 @@
+go 1.20
+
+use (
+	./api/activity
+	./api/banner
+	./api/brand
+	./api/category
+	./api/code
+	./api/help
+	./api/location
+	./api/order
+	./api/product
+	./api/recipe
+	./api/report
+	./api/user
+	./gateway
+	./pkg/auth
+	./pkg/errors
+	./pkg/routes
+)
+
+replace (
+	github.com/grocee-project/dairyfood/backend/go/pkg/auth v0.0.0 => ./pkg/auth
+	github.com/grocee-project/dairyfood/backend/go/pkg/errors v0.0.0 => ./pkg/errors
+	github.com/grocee-project/dairyfood/backend/go/pkg/routes v0.0.0 => ./pkg/routes
+)

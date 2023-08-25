@@ -1,0 +1,28 @@
+version: '3.4'
+
+services:
+  api-gateway:
+    image: api-gateway:latest
+    container_name: api-gateway
+    volumes:
+      - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/keyfile.json:ro   
+    env_file: 
+      - ../../gateway/.env
+      - ../../gateway/.secret.env
+    ports:
+      - 8080:8080
+    networks:
+      - dairyfood-network
+  user-service:
+    image: user-service:latest
+    container_name: user-service
+    env_file: 
+      - .env
+      - .secret.env
+    volumes:
+      - ${GOOGLE_APPLICATION_CREDENTIALS}:/tmp/keys/keyfile.json:ro  
+    networks:
+      - dairyfood-network      
+networks:
+  dairyfood-network:
+    driver: bridge

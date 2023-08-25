@@ -1,0 +1,108 @@
+name: Web DairyFod
+on:
+  push:
+    paths: ["web/**", ".github/workflows/web.yml"]
+jobs:
+  build-and-deploy-dev:
+    if: ${{ (github.ref == 'refs/heads/develop') }}
+    runs-on: "ubuntu-latest"
+    environment: develop
+    permissions:
+      contents: "read"
+      id-token: "write"
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - uses: actions/checkout@v2
+      - id: auth
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v0.8.1"
+        with:
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT }}"
+          token_format: access_token
+          create_credentials_file: true
+          cleanup_credentials: true
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Check dependencies in cache
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Initializing dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: yarn
+      - name: Build the project
+        run: yarn build:dev
+      - name: set env firebase.json
+        run: node env-config.js development
+      - name: Auth To Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          entrypoint: ./web
+          firebaseServiceAccount: ${{ secrets.FIREBASE_AUTH_HOSTING }}
+          projectId: dairy-food-development
+          channelId: live
+
+  build-and-deploy-prod:
+    if: ${{ (github.ref == 'refs/heads/production') }}
+    runs-on: "ubuntu-latest"
+    environment: production
+    permissions:
+      contents: "read"
+      id-token: "write"
+    defaults:
+      run:
+        working-directory: ./web
+    steps:
+      - uses: actions/checkout@v2
+      - id: auth
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v0.8.1"
+        with:
+          workload_identity_provider: "${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}"
+          service_account: "${{ secrets.SERVICE_ACCOUNT }}"
+          token_format: access_token
+          create_credentials_file: true
+          cleanup_credentials: true
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Check dependencies in cache
+        id: yarn-cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Initializing dependencies
+        if: steps.npm-cache.outputs.cache-hit != 'true'
+        run: yarn
+      - name: Build the project
+        run: yarn build:prod
+      - name: set env firebase.json
+        run: node env-config.js production
+      - name: Auth To Firebase
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          entrypoint: ./web
+          firebaseServiceAccount: ${{ secrets.FIREBASE_AUTH_HOSTING }}
+          projectId: dairy-food-production
+          channelId: live

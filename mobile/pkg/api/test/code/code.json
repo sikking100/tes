@@ -1,0 +1,10 @@
+{
+    "code": 200,
+    "data": {
+        "id": "JKT01",
+        "description": "ccc",
+        "createdAt": "2022-12-15T07:17:51.834Z",
+        "updatedAt": "2022-12-15T07:17:51.834Z"
+    },
+    "message": "ok"
+}

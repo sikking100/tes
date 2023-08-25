@@ -1,0 +1,23 @@
+{
+    "code": 200,
+    "message": "ok",
+    "data": [
+        {
+            "id": "string",
+            "categoryId": "string",
+            "categoryName": "string",
+            "brandId": "string",
+            "brandName": "string",
+            "name": "string",
+            "description": "string",
+            "size": "string",
+            "imageUrl": "string",
+            "point": 0.0,
+            "price": 0,
+            "discount": 0,
+            "additionalDisocunt": 0,
+            "qtyPurchase": 0,
+            "qtyRecive": 0
+        }
+    ]
+}
